@@ -1,0 +1,1 @@
+export { afficherDashboard as afficherCockpit } from './dashboard.js';

@@ -1,0 +1,1374 @@
+@charset "utf-8";
+/* Onglet dossiers — styles propres à la vue, préfixés par #vue-dossiers. Jetons de couleur : style.css (:root). */
+/* Onglet dossiers — styles propres à la vue, préfixés par #vue-dossiers.
+   Jetons de couleur : style.css (:root). Pas de couleur en dur. */
+
+#vue-dossiers {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+#vue-dossiers .s-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px 20px;
+}
+
+#vue-dossiers .do-actions-haut {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#vue-dossiers #do-retour[hidden],
+#vue-dossiers #do-nouveau[hidden],
+#vue-dossiers #do-liste[hidden],
+#vue-dossiers #do-contenu[hidden] {
+  display: none !important;
+}
+
+/* ---------- Bandeau de compteurs cliquables ---------- */
+#vue-dossiers .do-compteurs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+#vue-dossiers .do-compteur {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 72px;
+  padding: 14px 12px;
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  background: var(--papier);
+  color: var(--encre);
+  cursor: pointer;
+  font: inherit;
+  box-shadow: var(--ombre);
+  transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+  min-width: 0;
+}
+
+#vue-dossiers .do-compteur:hover {
+  background: var(--creux);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(60, 53, 50, .09);
+}
+
+#vue-dossiers .do-compteur.actif,
+#vue-dossiers .do-compteur[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--papier));
+}
+
+#vue-dossiers .do-compteur span:first-child {
+  font: 800 1.8rem/1 var(--titre);
+  color: var(--encre);
+}
+
+#vue-dossiers .do-compteur span:last-child {
+  font-size: 0.7188rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--gris);
+  text-align: center;
+}
+
+/* ---------- Statut du dossier et anomalies (cellules de la grille) ---------- */
+#vue-dossiers .do-statut,
+#vue-dossiers .do-anomalies {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 1px 8px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+#vue-dossiers .do-statut {
+  background: var(--creux);
+  color: var(--gris);
+}
+
+#vue-dossiers .do-statut.actif {
+  background: color-mix(in srgb, var(--succes) 15%, var(--papier));
+  color: var(--succes);
+}
+
+#vue-dossiers .do-statut.desistement {
+  background: color-mix(in srgb, var(--ph4) 24%, var(--papier));
+  color: var(--encre);
+}
+
+#vue-dossiers .do-statut.doublon,
+#vue-dossiers .do-statut.non_trouve {
+  background: color-mix(in srgb, var(--alerte) 15%, var(--papier));
+  color: var(--alerte);
+}
+
+#vue-dossiers .do-anomalies {
+  background: color-mix(in srgb, var(--alerte) 12%, var(--papier));
+  color: var(--alerte);
+  cursor: help;
+}
+
+/* ---------- Barre de filtres et recherche ---------- */
+#vue-dossiers .do-barre {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  align-items: center;
+  background: color-mix(in srgb, var(--papier) 88%, var(--creux));
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  padding: 10px 12px;
+  box-shadow: var(--ombre);
+}
+
+#vue-dossiers .do-barre #do-q {
+  grid-column: 1 / -1;
+  min-height: 44px;
+}
+
+#vue-dossiers .do-barre #do-reset,
+#vue-dossiers .do-barre #do-export {
+  min-height: 44px;
+}
+
+#vue-dossiers .do-resultat {
+  grid-column: 1 / -1;
+  font-size: 0.8125rem;
+  color: var(--gris);
+  text-align: right;
+}
+
+/* Ligne d'état du tri : aide au multi-niveaux tant qu'aucun tri n'est posé, puis résumé + effacement */
+#vue-dossiers .do-tri {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  font-size: 0.7812rem;
+  color: var(--gris);
+}
+
+#vue-dossiers .do-tri:empty { display: none; }
+
+#vue-dossiers .do-tri-aide { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 5px; }
+
+#vue-dossiers .do-tri kbd {
+  font: 600 0.6875rem var(--corps);
+  padding: 1px 5px;
+  border: 1px solid var(--trait-fort);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--creux);
+  color: var(--encre);
+}
+
+/* ---------- Grille AG Grid ---------- */
+#vue-dossiers #do-grille {
+  height: clamp(480px, 68vh, 820px);
+  border: 1px solid var(--trait-fort);
+  border-radius: var(--rayon);
+  overflow: hidden;
+  background: var(--papier);
+  box-shadow: 0 14px 34px rgba(60, 53, 50, .08);
+}
+
+#vue-dossiers #do-grille .ag-header {
+  border-bottom: 1px solid var(--trait-fort);
+}
+
+#vue-dossiers #do-grille .ag-row {
+  border-bottom-color: color-mix(in srgb, var(--trait) 70%, transparent);
+}
+
+#vue-dossiers #do-grille .ag-row-hover {
+  background: color-mix(in srgb, var(--accent) 5%, var(--papier));
+}
+
+#vue-dossiers #do-grille .do-row-impaye {
+  box-shadow: inset 4px 0 0 var(--alerte);
+}
+
+#vue-dossiers #do-grille .do-row-livree {
+  box-shadow: inset 4px 0 0 var(--ph4);
+}
+
+#vue-dossiers #do-grille .do-row-sans-versement {
+  box-shadow: inset 4px 0 0 var(--gris);
+}
+
+#vue-dossiers #do-grille .ag-paging-panel {
+  border-top: 1px solid var(--trait);
+  font-size: 0.8125rem;
+}
+
+/* Liens de la grille (lot, n° dossier…) : soulignés à l'accent.
+   Le :not(.bouton) est indispensable : ce sélecteur pèse (1,1,1) et écrasait la couleur de
+   .bouton (0,1,0). Le bouton « Ouvrir » se retrouvait en bordeaux sur fond bordeaux — illisible —
+   et « Client » perdait son texte encre. Un bouton doit garder le contraste que lui donne .bouton. */
+#vue-dossiers .do-grille a:not(.bouton) {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+
+#vue-dossiers .do-grille a:not(.bouton):hover {
+  text-decoration: underline;
+}
+
+:is(#vue-dossiers, .do-integre) .do-badge {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding: 2px 8px;
+  border-radius: 99px;
+  line-height: 1.3;
+}
+
+:is(#vue-dossiers, .do-integre) .do-badge.excel {
+  background: var(--creux);
+  color: var(--gris);
+}
+
+:is(#vue-dossiers, .do-integre) .do-badge.saisi {
+  background: color-mix(in srgb, var(--accent) 15%, var(--papier));
+  color: var(--accent);
+}
+
+#vue-dossiers .do-acq-cell {
+  display: grid;
+  gap: 2px;
+  line-height: 1.15;
+}
+
+#vue-dossiers .do-acq-cell strong {
+  color: var(--encre);
+  font-weight: 800;
+}
+
+#vue-dossiers .do-acq-cell span {
+  color: var(--gris);
+  font-size: 0.6875rem;
+}
+
+#vue-dossiers .do-actions-grid {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+}
+
+#vue-dossiers .do-actions-grid .bouton {
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+#vue-dossiers .do-barre-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+}
+
+#vue-dossiers .do-barre-cell .jauge {
+  flex: 1;
+  height: 8px;
+}
+
+#vue-dossiers .do-barre-cell span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gris);
+  min-width: 38px;
+  text-align: right;
+}
+
+#vue-dossiers .do-retard {
+  color: var(--ph4);
+  font-weight: 600;
+}
+
+#vue-dossiers .do-retard.fort {
+  color: var(--alerte);
+  font-weight: 700;
+}
+
+/* ---------- Fiche détail dossier ---------- */
+:is(#vue-dossiers .do-fiche, .do-integre) {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+:is(#vue-dossiers, .do-integre) .do-tete {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+:is(#vue-dossiers, .do-integre) .do-tete > div {
+  min-width: 0;
+  max-width: 100%;
+}
+
+:is(#vue-dossiers, .do-integre) .do-titre {
+  font: 800 clamp(1.3rem, 2.2vw, 2rem)/1.15 var(--titre);
+  margin: 6px 0 2px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+:is(#vue-dossiers, .do-integre) .do-sous-titre {
+  margin: 0;
+  color: var(--gris);
+  font-size: 0.8438rem;
+  font-weight: 500;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+:is(#vue-dossiers, .do-integre) .do-sous-titre a {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+
+:is(#vue-dossiers, .do-integre) .do-sous-titre a:hover {
+  text-decoration: underline;
+}
+
+/* Barre de la fiche dossier : navigation, actions et documents séparés.
+   Les trois étaient mêlés dans un seul bloc, ce qui rendait illisible ce qui mène ailleurs,
+   ce qui modifie le dossier et ce qui produit un document. */
+:is(#vue-dossiers, .do-integre) .do-tete-barre {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+:is(#vue-dossiers, .do-integre) .do-nav,
+:is(#vue-dossiers, .do-integre) .do-actions,
+:is(#vue-dossiers, .do-integre) .do-documents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+:is(#vue-dossiers, .do-integre) .do-nav:has(*),
+:is(#vue-dossiers, .do-integre) .do-actions:has(*) {
+  padding-right: 16px;
+  border-right: 1px solid var(--trait-fort);
+}
+
+:is(#vue-dossiers, .do-integre) .do-tete-barre .bouton {
+  padding: 6px 14px;
+  font-size: 0.8125rem;
+}
+
+/* ---------- Tuiles de situation ---------- */
+:is(#vue-dossiers, .do-integre) .do-tuiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  min-width: 0;
+}
+
+:is(#vue-dossiers, .do-integre) .do-tuile {
+  padding: 14px 16px;
+  min-height: 84px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+:is(#vue-dossiers, .do-integre) .do-tuile .valeur {
+  font-size: clamp(1.25rem, 2vw, 2rem);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+:is(#vue-dossiers, .do-integre) .do-tuile .valeur .nb {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+:is(#vue-dossiers, .do-integre) .do-tuile.alerte {
+  border-left: 4px solid var(--alerte);
+  background: color-mix(in srgb, var(--alerte) 6%, var(--papier));
+}
+
+:is(#vue-dossiers, .do-integre) .do-tuile.alerte .valeur {
+  color: var(--alerte);
+}
+
+/* ---------- Fiche en rangée : Paiement & Échéancier ---------- */
+:is(#vue-dossiers, .do-integre) .do-rangee {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  min-width: 0;
+}
+
+:is(#vue-dossiers, .do-integre) .do-rangee > .bloc {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+:is(#vue-dossiers, .do-integre) .do-jauge {
+  width: 100%;
+  height: 180px;
+  margin: 0 auto 8px;
+}
+
+:is(#vue-dossiers, .do-integre) .do-dl {
+  grid-template-columns: minmax(110px, max-content) minmax(0, 1fr);
+  gap: 8px 12px;
+}
+
+:is(#vue-dossiers, .do-integre) .do-dl dt {
+  color: var(--gris);
+  font-size: 0.8125rem;
+}
+
+:is(#vue-dossiers, .do-integre) .do-dl dd {
+  font-weight: 600;
+  font-size: 0.8438rem;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* ---------- Tables génériques (Échéancier & Versements) ---------- */
+:is(#vue-dossiers, .do-integre) .do-table {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  margin-top: 4px;
+}
+
+:is(#vue-dossiers, .do-integre) .do-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+:is(#vue-dossiers, .do-integre) .do-table th,
+:is(#vue-dossiers, .do-integre) .do-table td {
+  padding: 8px 10px;
+  border-top: 1px solid var(--trait);
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+:is(#vue-dossiers, .do-integre) .do-table thead th {
+  background: var(--creux);
+  color: var(--gris);
+  font-weight: 700;
+  font-size: 0.7188rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  border-top: 0;
+}
+
+:is(#vue-dossiers, .do-integre) .do-table tfoot th,
+:is(#vue-dossiers, .do-integre) .do-table tfoot td {
+  font-weight: 700;
+  background: var(--creux);
+  border-top: 2px solid var(--trait-fort);
+}
+
+/* ---------- Échéancier : états avec icône ET couleur ---------- */
+:is(#vue-dossiers, .do-integre) .do-etat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: 3px 9px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+/* Payée : vert + coche */
+:is(#vue-dossiers, .do-integre) .do-etat.payee {
+  background: color-mix(in srgb, var(--succes) 15%, var(--papier));
+  color: var(--succes);
+  border: 1px solid color-mix(in srgb, var(--succes) 35%, transparent);
+}
+
+:is(#vue-dossiers, .do-integre) .do-etat.payee::before {
+  content: "✓";
+  font-weight: 900;
+  font-size: 0.6875rem;
+}
+
+:is(#vue-dossiers, .do-integre) .do-ech-payee td {
+  color: var(--encre);
+}
+
+/* En retard : alerte + triangle d'avertissement */
+:is(#vue-dossiers, .do-integre) .do-etat.retard {
+  background: color-mix(in srgb, var(--alerte) 15%, var(--papier));
+  color: var(--alerte);
+  border: 1px solid color-mix(in srgb, var(--alerte) 35%, transparent);
+}
+
+:is(#vue-dossiers, .do-integre) .do-etat.retard::before {
+  content: "⚠";
+  font-weight: 900;
+  font-size: 0.6875rem;
+}
+
+:is(#vue-dossiers, .do-integre) .do-ech-retard {
+  background: color-mix(in srgb, var(--alerte) 5%, var(--papier));
+}
+
+:is(#vue-dossiers, .do-integre) .do-ech-retard td.n {
+  color: var(--alerte);
+  font-weight: 800;
+}
+
+/* À venir : gris neutre + cercle */
+:is(#vue-dossiers, .do-integre) .do-etat.avenir {
+  background: var(--creux);
+  color: var(--gris);
+  border: 1px solid var(--trait);
+}
+
+:is(#vue-dossiers, .do-integre) .do-etat.avenir::before {
+  content: "○";
+  font-weight: 800;
+  font-size: 0.625rem;
+}
+
+/* ---------- Versements : annulés barrés et grisés ---------- */
+:is(#vue-dossiers, .do-integre) .do-annule {
+  opacity: .55;
+  background: color-mix(in srgb, var(--gris) 6%, transparent);
+}
+
+:is(#vue-dossiers, .do-integre) .do-annule td:not(.do-actions-cell) {
+  text-decoration: line-through;
+  text-decoration-color: var(--alerte);
+  color: var(--gris);
+}
+
+:is(#vue-dossiers, .do-integre) .do-annule .aide {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--alerte);
+  font-style: italic;
+  margin-top: 3px;
+  text-decoration: none !important;
+}
+
+:is(#vue-dossiers, .do-integre) .do-actions-cell {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+}
+
+:is(#vue-dossiers, .do-integre) .do-section-entete {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+:is(#vue-dossiers, .do-integre) .do-scans {
+  display: grid;
+  gap: 10px;
+}
+
+:is(#vue-dossiers, .do-integre) .do-scan {
+  border: 1px solid var(--trait);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--papier) 88%, var(--creux));
+  padding: 12px;
+}
+
+:is(#vue-dossiers, .do-integre) .do-scan-tete {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+:is(#vue-dossiers, .do-integre) .do-scan-tete > div {
+  display: grid;
+  gap: 2px;
+}
+
+:is(#vue-dossiers, .do-integre) .do-scan-pages {
+  display: grid;
+  gap: 8px;
+}
+
+:is(#vue-dossiers, .do-integre) .do-scan-groupe {
+  display: grid;
+  grid-template-columns: minmax(140px, .4fr) minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  padding-top: 8px;
+  border-top: 1px solid var(--trait);
+}
+
+:is(#vue-dossiers, .do-integre) .do-scan-groupe > span {
+  color: var(--gris);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+:is(#vue-dossiers, .do-integre) .do-scan-groupe > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+/* ---------- Pièces jointes ---------- */
+:is(#vue-dossiers, .do-integre) .do-pieces {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+:is(#vue-dossiers, .do-integre) .do-pieces li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
+  padding: 8px 12px;
+  background: var(--creux);
+  border: 1px solid var(--trait);
+  border-radius: 8px;
+  font-size: 0.8438rem;
+}
+
+:is(#vue-dossiers, .do-integre) .do-pieces a {
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+
+:is(#vue-dossiers, .do-integre) .do-pieces a:hover {
+  text-decoration: underline;
+}
+
+:is(#vue-dossiers, .do-integre) .do-pieces .aide {
+  margin: 0;
+}
+
+:is(#vue-dossiers, .do-integre) .do-ajout-piece {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+:is(#vue-dossiers, .do-integre) .do-ajout-piece input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+/* ---------- Assistant en 3 étapes ---------- */
+#vue-dossiers .do-assistant {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 960px;
+  margin-inline: auto;
+  width: 100%;
+  min-width: 0;
+}
+
+#vue-dossiers .do-etapes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+#vue-dossiers .do-etapes li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  background: var(--papier);
+  color: var(--gris);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  box-shadow: var(--ombre);
+}
+
+#vue-dossiers .do-etape-n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 0.75rem;
+  background: var(--creux);
+  color: var(--gris);
+  border: 1px solid var(--trait-fort);
+  flex-shrink: 0;
+}
+
+#vue-dossiers .do-etapes li.actif {
+  border-color: var(--accent);
+  color: var(--encre);
+  background: color-mix(in srgb, var(--accent) 8%, var(--papier));
+  font-weight: 700;
+}
+
+#vue-dossiers .do-etapes li.actif .do-etape-n {
+  background: var(--accent);
+  color: var(--accent-texte);
+  border-color: var(--accent);
+}
+
+#vue-dossiers .do-etapes li.fait {
+  border-color: var(--succes);
+  color: var(--encre);
+}
+
+#vue-dossiers .do-etapes li.fait .do-etape-n {
+  background: var(--succes);
+  color: #FFFFFF;
+  border-color: var(--succes);
+}
+
+/* Assistant : formulaire et recherche client */
+#vue-dossiers .do-recherche {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+#vue-dossiers .do-recherche label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--encre);
+}
+
+#vue-dossiers .do-suggestions {
+  margin-top: 6px;
+}
+
+#vue-dossiers .do-suggestions-liste {
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid var(--trait);
+  border-radius: 8px;
+  background: var(--papier);
+}
+
+#vue-dossiers .do-suggestions-liste li button {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  border: 0;
+  border-bottom: 1px solid var(--trait);
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  color: var(--encre);
+}
+
+#vue-dossiers .do-suggestions-liste li button:hover {
+  background: var(--creux);
+}
+
+#vue-dossiers .do-suggestions-liste li:last-child button {
+  border-bottom: 0;
+}
+
+#vue-dossiers .do-formulaire {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+#vue-dossiers .do-formulaire label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.7812rem;
+  font-weight: 600;
+  color: var(--gris);
+}
+
+#vue-dossiers .do-formulaire input,
+#vue-dossiers .do-formulaire select {
+  min-height: 42px;
+}
+
+/* Assistant : sélection des lots */
+#vue-dossiers .do-barre-lots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#vue-dossiers .do-barre-lots #do-lot-q {
+  grid-column: 1 / -1;
+  min-height: 40px;
+}
+
+#vue-dossiers .do-barre-lots select {
+  min-height: 40px;
+}
+
+#vue-dossiers .do-lots {
+  margin: 10px 0;
+}
+
+#vue-dossiers .do-lots-liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+#vue-dossiers .do-lots-liste button {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  border: 1px solid var(--trait);
+  border-radius: 8px;
+  background: var(--papier);
+  color: var(--encre);
+  cursor: pointer;
+  font: inherit;
+  transition: border-color .15s ease, background .15s ease;
+}
+
+#vue-dossiers .do-lots-liste button:hover {
+  border-color: var(--accent);
+  background: var(--creux);
+}
+
+#vue-dossiers .do-lots-liste button[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--papier));
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+/* Assistant : générateur d'échéances */
+#vue-dossiers .do-generateur {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+  gap: 10px;
+  align-items: end;
+  padding: 14px;
+  background: var(--creux);
+  border-radius: var(--rayon);
+  margin: 12px 0;
+}
+
+#vue-dossiers .do-generateur label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.7812rem;
+  font-weight: 600;
+  color: var(--gris);
+}
+
+#vue-dossiers .do-generateur input,
+#vue-dossiers .do-generateur select,
+#vue-dossiers .do-generateur button {
+  min-height: 42px;
+}
+
+#vue-dossiers #do-ech-table {
+  margin: 14px 0;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+#vue-dossiers #do-ech-table input {
+  font: inherit;
+  font-size: 0.8438rem;
+  padding: 6px 8px;
+  border: 1px solid var(--trait-fort);
+  border-radius: 6px;
+  background: var(--papier);
+  color: var(--encre);
+  width: 100%;
+}
+
+#vue-dossiers #do-ech-table td.n input {
+  text-align: right;
+}
+
+#vue-dossiers .do-total-ok {
+  background: color-mix(in srgb, var(--succes) 12%, var(--papier)) !important;
+  color: var(--succes) !important;
+}
+
+#vue-dossiers .do-total-ko {
+  background: color-mix(in srgb, var(--alerte) 12%, var(--papier)) !important;
+  color: var(--alerte) !important;
+}
+
+/* ---------- Dialogues modaux (do-dlg) ---------- */
+#vue-dossiers .do-dlg,
+dialog.do-dlg {
+  width: min(560px, 94vw);
+  max-height: 88vh;
+  margin: auto;
+  padding: 20px 24px;
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  background: var(--papier);
+  color: var(--encre);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, .24);
+}
+
+#vue-dossiers .do-dlg[open],
+dialog.do-dlg[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#vue-dossiers .do-dlg::backdrop,
+dialog.do-dlg::backdrop {
+  background: rgba(20, 16, 14, .6);
+  backdrop-filter: blur(2px);
+}
+
+#vue-dossiers .do-dlg h3,
+dialog.do-dlg h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--encre);
+}
+
+#vue-dossiers .do-dlg .formulaire,
+dialog.do-dlg .formulaire {
+  gap: 10px;
+}
+
+#vue-dossiers .do-dlg input,
+#vue-dossiers .do-dlg select,
+#vue-dossiers .do-dlg textarea,
+dialog.do-dlg input,
+dialog.do-dlg select,
+dialog.do-dlg textarea {
+  font: inherit;
+  font-size: 0.875rem;
+  color: var(--encre);
+  background: var(--papier);
+  border: 1px solid var(--trait-fort);
+  border-radius: 8px;
+  padding: 8px 10px;
+  width: 100%;
+}
+
+#vue-dossiers .do-dlg .actions,
+dialog.do-dlg .actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* ---------- Responsive Desktop (>= 900px) ---------- */
+@media (min-width: 900px) {
+  #vue-dossiers .do-compteurs {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  #vue-dossiers .do-barre {
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+  }
+
+  #vue-dossiers .do-barre #do-q {
+    grid-column: auto;
+  }
+
+  #vue-dossiers .do-resultat {
+    grid-column: auto;
+  }
+
+  :is(#vue-dossiers, .do-integre) .do-tuiles {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  :is(#vue-dossiers, .do-integre) .do-rangee {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  }
+
+  #vue-dossiers .do-formulaire {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #vue-dossiers .do-barre-lots {
+    grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)) auto;
+  }
+
+  #vue-dossiers .do-barre-lots #do-lot-q {
+    grid-column: auto;
+  }
+}
+
+/* ---------- Responsive Mobile (<= 520px) ---------- */
+@media (max-width: 520px) {
+  :is(#vue-dossiers, .do-integre) .do-tuiles {
+    grid-template-columns: 1fr;
+  }
+
+  #vue-dossiers .do-compteurs {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  #vue-dossiers .do-compteur {
+    min-height: 64px;
+    padding: 8px 6px;
+  }
+
+  #vue-dossiers .do-compteur span:first-child {
+    font-size: 1.5rem;
+  }
+
+  #vue-dossiers .do-compteur span:last-child {
+    font-size: 0.6562rem;
+  }
+
+  #vue-dossiers .do-etapes {
+    grid-template-columns: 1fr;
+  }
+
+  #vue-dossiers .do-barre-lots {
+    grid-template-columns: 1fr;
+  }
+
+  #vue-dossiers .do-barre-lots #do-lot-compte {
+    text-align: left;
+  }
+
+  :is(#vue-dossiers, .do-integre) .do-dl {
+    grid-template-columns: 1fr;
+    gap: 2px 0;
+  }
+
+  :is(#vue-dossiers, .do-integre) .do-dl dt {
+    font-size: 0.75rem;
+    margin-top: 6px;
+  }
+
+  :is(#vue-dossiers, .do-integre) .do-scan-groupe {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Focus ---------- */
+#vue-dossiers input:focus-visible,
+#vue-dossiers select:focus-visible,
+#vue-dossiers textarea:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- Propositions de versements OCR ---------- */
+:is(#vue-dossiers, .do-integre) .do-propositions-ocr {
+  border-left: 4px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 5%, var(--papier));
+}
+
+:is(#vue-dossiers, .do-integre) .do-propositions-entete {
+  margin-bottom: 12px;
+}
+
+:is(#vue-dossiers, .do-integre) .do-propositions-entete .badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--accent);
+  color: #fff;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* ---------- Réaffectation de lot ---------- */
+#vue-dossiers .do-r-feedback {
+  margin: 10px 0;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+#vue-dossiers .do-r-feedback:empty {
+  display: none;
+}
+#vue-dossiers .do-r-carte {
+  padding: 10px 12px;
+  border-radius: var(--rayon);
+  border: 1px solid var(--trait);
+}
+#vue-dossiers .do-r-carte.succes {
+  background: color-mix(in srgb, #10b981 12%, var(--papier));
+  border-color: #10b981;
+  color: var(--encre);
+}
+#vue-dossiers .do-r-carte.alerte {
+  background: color-mix(in srgb, #ef4444 12%, var(--papier));
+  border-color: #ef4444;
+  color: var(--encre);
+}
+#vue-dossiers .do-r-carte.vigilance {
+  background: color-mix(in srgb, #f59e0b 12%, var(--papier));
+  border-color: #f59e0b;
+  color: var(--encre);
+}
+#vue-dossiers .do-r-carte h4 {
+  margin: 0 0 4px;
+  font-size: 0.8438rem;
+  font-weight: 700;
+}
+#vue-dossiers .do-r-carte p {
+  margin: 0;
+}
+#vue-dossiers .do-r-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  margin-top: 8px;
+}
+#vue-dossiers .texte-danger {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+/* lot rattaché : un acquéreur, deux villas, un seul règlement */
+:is(#vue-dossiers, .do-integre) .do-rattache {
+  margin: 6px 0 0;
+  font-size: 0.8125rem;
+  color: var(--encre);
+}
+:is(#vue-dossiers, .do-integre) .do-rattache .do-badge { margin-right: 6px; }
+
+/* ventilation d'un règlement commun entre les villas (fiche dossier et fiche client) */
+.vt-defile { overflow-x: auto; position: relative; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--papier); }
+.vt-table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 0.875rem; }
+.vt-table th, .vt-table td { padding: 8px 12px; border-bottom: 1px solid var(--trait); text-align: left; vertical-align: middle; }
+.vt-table thead th { background: var(--creux); font-size: 0.7812rem; letter-spacing: .04em; }
+.vt-table th small { display: block; font-weight: 500; color: var(--gris); font-size: 0.7188rem; }
+.vt-table td.vt-n, .vt-table thead th:nth-child(n+3):nth-child(-n+5) { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.vt-table tfoot th, .vt-table tfoot td { font-weight: 800; border-bottom: 0; background: var(--creux); }
+.vt-table tr.vt-courant th { box-shadow: inset 3px 0 0 var(--accent); }
+.vt-titre { margin: 14px 0 6px; font-size: 0.875rem; font-weight: 800; }
+.vt-conf { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.vt-conf li { display: flex; gap: 8px; align-items: flex-start; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--trait); font-size: 0.8438rem; }
+.vt-conf li > span:first-child { font-weight: 800; flex: none; }
+.vt-conf .vt-ok { border-left: 3px solid #2e7d32; }
+.vt-conf .vt-info { border-left: 3px solid var(--accent); }
+.vt-conf .vt-alerte { border-left: 3px solid var(--alerte); background: color-mix(in srgb, var(--alerte) 8%, var(--papier)); }
+.cl-ventilation { margin-top: 10px; }
+/* le tableau ne doit jamais élargir la carte qui le contient : il défile dans son cadre */
+.cl-ventilation, .vt-defile { min-width: 0; max-width: 100%; contain: inline-size; }
+
+/* déplacer un dossier scanné mal placé */
+:is(#vue-dossiers, .do-integre) .do-scan-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+dialog.do-dlg .do-s-scan {
+  display: grid;
+  gap: 4px;
+  margin: 0 0 10px;
+}
+dialog.do-dlg .do-s-liste {
+  list-style: none;
+  margin: 8px 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+dialog.do-dlg .do-s-liste label {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  cursor: pointer;
+  font-size: 0.8125rem;
+}
+dialog.do-dlg .do-s-liste label:has(input:checked) {
+  border-color: var(--encre);
+}
+dialog.do-dlg .do-s-liste .aide {
+  display: block;
+}
+dialog.do-dlg .do-s-liste input[type="radio"] {
+  width: auto;
+  margin: 2px 0 0;
+  padding: 0;
+}
+
+/* Mes identifiants (compte.js) : identifiant puis mot de passe */
+dialog.do-dlg .cp-bloc {
+  border-top: 1px solid var(--trait);
+  padding-top: 10px;
+  margin-top: 10px;
+}
+dialog.do-dlg .cp-bloc h4 {
+  margin: 0 0 4px;
+  font-size: 0.9375rem;
+}
+
+/* Fiche dossier affichée dans l’onglet Contrat de la fiche client. */
+.do-integre { margin: 0; }
+:is(#vue-dossiers.do-integre, .do-integre) .do-tete { gap: 8px; }
+:is(#vue-dossiers.do-integre, .do-integre) .do-tete-barre { justify-content: flex-start; }
+:is(#vue-dossiers.do-integre, .do-integre) .do-actions { padding-right: 0; border-right: 0; }
+:is(#vue-dossiers.do-integre, .do-integre) .do-tete-barre .bouton { padding: 5px 10px; }
+.do-integre button.lien { background: none; border: 0; padding: 0; color: var(--accent); font: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+/* Détail du contrat dans la fiche client : sous-onglets (une section visible à la fois). Plus discrets que
+   les onglets de la fiche : pilules sur fond creux, pour qu'on lise deux niveaux de navigation. */
+.do-sous-barre { container: do-barre / inline-size; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  margin: 4px 0 12px; }
+.do-sous-onglets { display: flex; gap: 4px; flex-wrap: wrap; padding: 4px; background: var(--creux); border-radius: 10px; }
+/* Actions du contrat, à droite des sous-onglets : versement en bouton, documents et actions rares en menus. */
+.do-actions-contrat { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.do-actions-groupe { display: inline-flex; gap: 4px; padding-left: 6px; border-left: 1px solid var(--trait); }
+.do-icone { display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 5px 9px; }
+.do-icone-txt { font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+.do-icone.danger { color: var(--alerte, #b3261e); }
+@media (max-width: 640px) {
+  .do-sous-barre { flex-direction: column; align-items: stretch; }
+}
+.do-sous-onglet { font: 600 0.7812rem var(--corps); color: var(--gris); padding: 6px 12px; border: 0; border-radius: 7px;
+  background: none; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+.do-sous-onglet:hover { color: var(--encre); }
+.do-sous-onglet[aria-selected="true"] { color: var(--encre); background: var(--papier); box-shadow: 0 1px 2px rgb(0 0 0 / .08); }
+.do-sous-onglet:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
+.do-sous-onglet .do-compte { font-weight: 500; color: var(--gris); font-variant-numeric: tabular-nums; }
+.do-sous-panneau { display: flex; flex-direction: column; gap: 14px; }
+.do-sous-panneau[hidden] { display: none; }
+
+/* Conditions du contrat lues dans le scan : prix, apport, appels de fonds, livraison, dédit. */
+.do-conditions .do-dl-conditions dd { font-weight: 500; }
+.do-conditions .do-dl-conditions dd .aide { display: inline; font-weight: 400; }
+.do-conditions .do-sous-titre-bloc { margin: 14px 0 6px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.do-conditions .do-sous-titre-bloc h4 { margin: 0; font-size: 0.8438rem; display: flex; align-items: center; gap: 6px; }
+.do-notes-contrat { display: grid; gap: 4px; }
+
+/* Actes et attestations du contrat (avenants, cessions, attestations) : scans comparés au classeur. */
+.do-actes .do-table-actes th[scope="row"] { font-weight: 600; text-align: left; }
+.do-actes .do-table-actes td { vertical-align: top; }
+.do-actes .do-acte { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; margin-bottom: 4px; }
+.do-actes .do-chrono-actes { margin-top: 10px; }
+.do-actes .do-chrono-actes summary { cursor: pointer; font-weight: 600; }
+.do-actes .do-chrono-actes ol { margin: 6px 0 0 18px; padding: 0; display: grid; gap: 4px; }
+@media (max-width: 640px) {
+  /* Téléphone : une carte par pièce plutôt qu'un tableau à faire défiler. */
+  .do-actes .do-table-actes { overflow: visible; }
+  .do-actes .do-table-actes thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .do-actes .do-table-actes :is(table, tbody, tr, th, td) { display: block; width: auto; }
+  .do-actes .do-table-actes tr { padding: 8px 0; border-bottom: 1px solid var(--trait); }
+  .do-actes .do-table-actes :is(th, td) { padding: 3px 0; border: 0; }
+  .do-actes .do-table-actes td::before { content: attr(data-libelle) " : "; color: var(--gris); font-size: 0.75rem; }
+}
+
+/* Pièces d'identité relevées dans les scans. */
+.do-identites .do-liste-identites { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 8px; }
+.do-identites .do-liste-identites > li { padding: 8px 10px; border: 1px solid var(--trait); border-radius: var(--rayon); }
+.do-identites .do-identite-tete { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin-bottom: 4px; }
+.do-identites .do-identite-num { font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+
+/* Actions du contrat : boutons en pilules, adaptés à la largeur réelle du bloc (requêtes de conteneur) */
+.do-actions-contrat { row-gap: 8px; }
+.do-actions-contrat .bouton { border-radius: 999px; transition: background .15s, border-color .15s, box-shadow .15s, transform .15s; }
+.do-actions-contrat .bouton.secondaire { background: var(--papier); border-color: var(--trait); }
+.do-actions-contrat .bouton.secondaire:hover { border-color: var(--accent); box-shadow: 0 2px 6px rgb(0 0 0 / .10); transform: translateY(-1px); }
+.do-actions-contrat .bouton:active { transform: none; box-shadow: none; }
+.do-actions-groupe { flex-wrap: wrap; row-gap: 6px; }
+.do-icone svg { flex: none; }
+@container do-barre (max-width: 900px) {
+  .do-actions-contrat { flex: 1 1 100%; }
+}
+@container do-barre (max-width: 560px) {
+  .do-actions-contrat { gap: 8px; }
+  #do-versement { flex: 1 1 100%; min-height: 40px; }
+  .do-actions-groupe { flex: 1 1 auto; padding-left: 0; border-left: 0; }
+  .do-icone { min-width: 40px; min-height: 40px; padding: 8px; }
+  .do-icone-txt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}

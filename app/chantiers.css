@@ -1,0 +1,750 @@
+@charset "utf-8";
+/* Onglet chantiers — styles propres à la vue, préfixés par #vue-chantiers. Jetons de couleur : style.css (:root). */
+
+#vue-chantiers { display: flex; flex-direction: column; gap: 12px; }
+
+#vue-chantiers .ch-intro h2 { margin: 0; }
+#vue-chantiers .ch-actions-haut { display: flex; flex-wrap: wrap; gap: 8px; }
+#vue-chantiers #ch-actions-fiche[hidden] { display: none; }
+
+/* ---------- compteurs cliquables ---------- */
+#vue-chantiers .ch-compteurs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+#vue-chantiers .ch-compteur {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  min-height: 72px; padding: 10px; border: 1px solid var(--trait); border-radius: var(--rayon);
+  background: var(--papier); color: var(--encre); cursor: pointer; font: inherit;
+  box-shadow: var(--ombre);
+}
+#vue-chantiers .ch-compteur:hover { background: var(--creux); }
+#vue-chantiers .ch-compteur.actif { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--papier)); }
+#vue-chantiers .ch-compteur span:first-child { font: 800 1.8rem/1 var(--titre); }
+#vue-chantiers .ch-compteur span:last-child { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--gris); }
+
+/* ---------- barre de filtres ---------- */
+#vue-chantiers .ch-barre-filtres {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: center;
+  background: var(--papier); border: 1px solid var(--trait); border-radius: var(--rayon); padding: 12px;
+  box-shadow: var(--ombre);
+}
+#vue-chantiers .ch-barre-filtres input,
+#vue-chantiers .ch-barre-filtres select { min-height: 44px; }
+#vue-chantiers .ch-barre-filtres #ch-q { grid-column: 1 / -1; }
+#vue-chantiers .ch-barre-filtres #ch-reset { min-height: 44px; }
+#vue-chantiers .ch-resultat { grid-column: 1 / -1; font-size: 0.8125rem; color: var(--gris); text-align: right; }
+
+/* ---------- contenu ---------- */
+#vue-chantiers .ch-contenu { min-height: 0; }
+
+/* ---------- cartes mobile ---------- */
+#vue-chantiers .ch-cartes { display: grid; gap: 10px; }
+#vue-chantiers .ch-carte {
+  display: block; background: var(--papier); border: 1px solid var(--trait); border-radius: var(--rayon);
+  box-shadow: var(--ombre); color: var(--encre); text-decoration: none; overflow: hidden;
+}
+#vue-chantiers .ch-carte:hover { outline: 2px solid var(--trait-fort); }
+#vue-chantiers .ch-carte-tete {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  padding: 12px 14px; background: var(--creux); border-bottom: 1px solid var(--trait);
+}
+#vue-chantiers .ch-carte-tete strong { font-size: 1.25rem; font-weight: 800; }
+#vue-chantiers .ch-phase { font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--bande-texte); padding: 4px 8px; border-radius: 99px; }
+#vue-chantiers .ch-carte-corps { display: grid; gap: 8px; padding: 14px; }
+#vue-chantiers .ch-avancement { font-weight: 700; font-size: 1.1rem; }
+#vue-chantiers .ch-cartes-pastilles { display: flex; flex-wrap: wrap; gap: 6px; }
+#vue-chantiers .ch-pastille { font-size: 0.6875rem; font-weight: 600; padding: 3px 8px; border-radius: 99px; }
+#vue-chantiers .ch-pastille.estime { background: color-mix(in srgb, var(--ph4) 18%, var(--papier)); color: var(--ph4); }
+#vue-chantiers .ch-pastille.retard { background: color-mix(in srgb, var(--alerte) 15%, var(--papier)); color: var(--alerte); }
+#vue-chantiers .ch-pastille.reserve { background: color-mix(in srgb, var(--accent) 15%, var(--papier)); color: var(--accent); }
+#vue-chantiers .ch-visite { font-size: 0.7812rem; color: var(--gris); }
+
+/* ---------- grille AG Grid ---------- */
+#vue-chantiers #ch-grille { height: 60vh; border: 1px solid var(--trait); border-radius: var(--rayon); overflow: hidden; }
+#vue-chantiers .ch-barre-cell { display: flex; align-items: center; gap: 8px; }
+#vue-chantiers .ch-barre-cell .jauge { flex: 1; height: 8px; }
+#vue-chantiers .ch-retard { color: var(--alerte); font-weight: 700; }
+#vue-chantiers .ch-reserve { color: var(--accent); font-weight: 700; }
+
+/* ---------- fiche détail ---------- */
+#vue-chantiers .ch-detail { display: grid; gap: 12px; }
+#vue-chantiers .ch-tete {
+  display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px;
+}
+#vue-chantiers .ch-tete h2 { margin: 4px 0 2px; }
+#vue-chantiers .ch-sous-titre { margin: 0; color: var(--gris); font-weight: 600; }
+#vue-chantiers .ch-tete-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+#vue-chantiers .ch-rangee { display: grid; gap: 12px; }
+#vue-chantiers .ch-jauge-bloc { display: grid; gap: 8px; margin-bottom: 14px; }
+#vue-chantiers .ch-jauge-bloc strong { font-size: 2rem; font-weight: 800; }
+#vue-chantiers .ch-jauge-bloc .jauge { height: 12px; }
+#vue-chantiers .ch-retard-grand { color: var(--alerte); font-weight: 700; font-size: 1.05rem; }
+#vue-chantiers .ch-dl { margin-top: 8px; }
+
+/* ---------- frise ---------- */
+#vue-chantiers .ch-frise { list-style: none; margin: 0; padding: 0; }
+#vue-chantiers .ch-frise li { position: relative; padding: 10px 0 10px 22px; border-left: 2px solid var(--trait); }
+#vue-chantiers .ch-frise li::before {
+  content: ""; position: absolute; left: -6px; top: 14px; width: 10px; height: 10px;
+  border-radius: 50%; background: var(--gris); border: 2px solid var(--papier);
+}
+#vue-chantiers .ch-frise li.constate::before { background: var(--succes); }
+#vue-chantiers .ch-frise li.estime::before { background: var(--ph4); }
+#vue-chantiers .ch-frise-tete { display: flex; justify-content: space-between; gap: 8px; }
+#vue-chantiers .ch-frise-tete strong { font-weight: 700; }
+#vue-chantiers .ch-poids { font-size: 0.75rem; color: var(--gris); }
+#vue-chantiers .ch-frise p { margin: 4px 0 0; font-size: 0.8125rem; color: var(--gris); }
+
+/* ---------- graphique ---------- */
+#vue-chantiers .ch-graph { width: 100%; height: 240px; margin-bottom: 12px; }
+
+/* ---------- réserves ---------- */
+#vue-chantiers .ch-reserves { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+#vue-chantiers .ch-reserves > li {
+  display: grid; gap: 6px; padding: 12px; border: 1px solid var(--trait); border-radius: 10px;
+  border-left-width: 4px;
+}
+#vue-chantiers .ch-reserves > li.ouverte { background: color-mix(in srgb, var(--alerte) 5%, var(--papier)); }
+#vue-chantiers .ch-reserve-mineure { border-left-color: var(--gris) !important; }
+#vue-chantiers .ch-reserve-majeure { border-left-color: var(--ph4) !important; }
+#vue-chantiers .ch-reserve-bloquante { border-left-color: var(--alerte) !important; }
+#vue-chantiers .ch-gravite { font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: 2px 7px; border-radius: 99px; margin-left: auto; }
+#vue-chantiers .ch-gravite.mineure { background: var(--creux); color: var(--gris); }
+#vue-chantiers .ch-gravite.majeure { background: color-mix(in srgb, var(--ph4) 18%, var(--papier)); color: var(--ph4); }
+#vue-chantiers .ch-gravite.bloquante { background: color-mix(in srgb, var(--alerte) 15%, var(--papier)); color: var(--alerte); }
+#vue-chantiers .ch-meta { font-size: 0.75rem; color: var(--gris); }
+
+/* ---------- photos ---------- */
+#vue-chantiers .ch-photos { display: flex; flex-wrap: wrap; gap: 10px; }
+#vue-chantiers .ch-photo {
+  display: block; width: 120px; height: 120px; border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--trait); background: var(--creux);
+}
+#vue-chantiers .ch-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- formulaire visite ---------- */
+#vue-chantiers .ch-form-visite { display: grid; gap: 12px; padding-bottom: 90px; }
+#vue-chantiers .ch-etape-visite { padding: 12px 0; border-bottom: 1px solid var(--trait); }
+#vue-chantiers .ch-etape-visite:last-child { border-bottom: 0; }
+#vue-chantiers .ch-etape-visite label { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 8px; }
+#vue-chantiers .ch-slider-ligne { display: flex; align-items: center; gap: 12px; }
+#vue-chantiers .ch-slider-ligne input[type="range"] { flex: 1; min-height: 44px; }
+#vue-chantiers .ch-slider-ligne output { font-weight: 700; min-width: 48px; text-align: right; }
+#vue-chantiers .ch-quick { display: flex; gap: 8px; margin-top: 8px; }
+#vue-chantiers .ch-quick button { min-height: 36px; padding: 4px 14px; font-size: 0.8125rem; }
+#vue-chantiers .ch-photo-bouton {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; cursor: pointer;
+}
+#vue-chantiers .ch-photo-bouton input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+#vue-chantiers .ch-apercus { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+#vue-chantiers .ch-apercu { position: relative; width: 100px; height: 100px; border-radius: 8px; overflow: hidden; }
+#vue-chantiers .ch-apercu img { width: 100%; height: 100%; object-fit: cover; }
+#vue-chantiers .ch-retirer-photo {
+  position: absolute; top: 4px; right: 4px; width: 28px; height: 28px;
+  background: var(--papier); border: 1px solid var(--trait); border-radius: 50%;
+  font-size: 1.125rem; line-height: 1; color: var(--alerte); cursor: pointer;
+}
+#vue-chantiers .ch-res-ligne { display: flex; align-items: center; gap: 8px; padding: 8px 0; font-size: 0.875rem; cursor: pointer; }
+#vue-chantiers .ch-res-ligne input { width: 20px; height: 20px; }
+#vue-chantiers .ch-reserves-a-ajouter { display: grid; gap: 10px; margin-top: 10px; }
+#vue-chantiers .ch-reserve-form {
+  display: grid; gap: 8px; padding: 12px; background: var(--creux); border-radius: 10px;
+}
+#vue-chantiers .ch-reserve-form label { display: flex; flex-direction: column; gap: 4px; font-size: 0.7812rem; font-weight: 600; color: var(--gris); }
+#vue-chantiers .ch-reserve-form input,
+#vue-chantiers .ch-reserve-form select { min-height: 40px; }
+#vue-chantiers .ch-barre-envoi {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 100;
+  display: flex; flex-direction: column; gap: 8px;
+  background: var(--papier); border-top: 1px solid var(--trait); padding: 12px var(--gouttiere);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, .08);
+}
+#vue-chantiers .ch-barre-envoi .bouton { min-height: 48px; font-size: 1rem; }
+#vue-chantiers .ch-progress { height: 4px; background: var(--creux); border-radius: 99px; overflow: hidden; }
+#vue-chantiers .ch-progress > div { height: 100%; width: 0; background: var(--accent); transition: width .2s ease; }
+
+/* ---------- formulaire nouveau chantier ---------- */
+#vue-chantiers .ch-form-chantier .formulaire { gap: 12px; }
+#vue-chantiers .ch-form-chantier input,
+#vue-chantiers .ch-form-chantier select { min-height: 44px; }
+
+/* ---------- responsive desktop ---------- */
+@media (min-width: 900px) {
+  #vue-chantiers .ch-compteurs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  #vue-chantiers .ch-barre-filtres {
+    grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr)) auto auto;
+  }
+  #vue-chantiers .ch-barre-filtres #ch-q { grid-column: auto; }
+  #vue-chantiers .ch-barre-filtres .ch-resultat { grid-column: auto; }
+  #vue-chantiers .ch-rangee { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  #vue-chantiers .ch-form-visite { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-bottom: 0; }
+  #vue-chantiers .ch-form-visite > .bloc:first-child { grid-column: 1 / -1; }
+  #vue-chantiers .ch-barre-envoi {
+    position: static; grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: flex-end;
+    border-top: 0; box-shadow: none; padding: 0; background: transparent;
+  }
+  #vue-chantiers .ch-barre-envoi .bouton { min-height: 44px; font-size: 0.875rem; }
+  #vue-chantiers .ch-form-chantier { max-width: 720px; }
+}
+
+@media (min-width: 1200px) {
+  #vue-chantiers .ch-rangee { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
+}
+
+/* ---------- focus ---------- */
+#vue-chantiers input:focus-visible,
+#vue-chantiers select:focus-visible,
+#vue-chantiers textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* ---------- Sous-onglets de navigation Chantiers ---------- */
+#vue-chantiers .ch-onglets-sousvue {
+  display: flex; gap: 8px; flex-wrap: wrap; border-bottom: 2px solid var(--trait); padding-bottom: 8px; margin-bottom: 4px;
+}
+#vue-chantiers .ch-sousonglet {
+  font: 700 0.8125rem var(--corps); color: var(--gris); background: var(--creux); border: 1px solid var(--trait); padding: 8px 16px; border-radius: 8px; cursor: pointer; transition: all .15s ease;
+}
+#vue-chantiers .ch-sousonglet:hover { background: color-mix(in srgb, var(--accent) 15%, var(--creux)); color: var(--encre); }
+#vue-chantiers .ch-sousonglet.actif { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* ---------- Cockpit KFE ---------- */
+.ch-cockpit { display: grid; gap: 16px; }
+.ch-cockpit-tete { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+.ch-cockpit-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.ch-kpi-carte { background: var(--papier); border: 1px solid var(--trait); border-radius: var(--rayon); padding: 16px; box-shadow: var(--ombre); display: grid; gap: 6px; }
+.ch-kpi-carte strong { font: 800 1.9rem/1.1 var(--titre); color: var(--encre); }
+.ch-kpi-carte .aide { margin: 0; font-size: 0.7812rem; }
+
+/* Matrice Commerciale 4 Quadrants */
+.ch-matrice-section { display: grid; gap: 10px; }
+.ch-matrice-grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.ch-matrice-carte {
+  background: var(--papier); border: 1px solid var(--trait); border-radius: var(--rayon); padding: 16px; box-shadow: var(--ombre);
+  display: flex; flex-direction: column; justify-content: space-between; gap: 12px; border-left: 5px solid var(--trait-fort);
+}
+.ch-matrice-carte.succes { border-left-color: var(--succes); background: color-mix(in srgb, var(--succes) 5%, var(--papier)); }
+.ch-matrice-carte.danger { border-left-color: var(--alerte); background: color-mix(in srgb, var(--alerte) 5%, var(--papier)); }
+.ch-matrice-carte.priorite { border-left-color: var(--ph4); background: color-mix(in srgb, var(--ph4) 6%, var(--papier)); }
+.ch-matrice-carte.dispo { border-left-color: var(--ph3); background: color-mix(in srgb, var(--ph3) 6%, var(--papier)); }
+.ch-matrice-carte-tete { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.ch-matrice-carte-tete h4 { font-size: 1rem; font-weight: 700; margin: 0; }
+.ch-matrice-compte { font: 800 1.6rem/1 var(--titre); }
+.ch-matrice-desc { font-size: 0.8125rem; color: var(--gris); margin: 0; line-height: 1.4; }
+
+/* Barres macro 7 Corps d'état */
+.ch-corps-section { display: grid; gap: 12px; }
+.ch-corps-grille { display: grid; gap: 8px; }
+.ch-corps-ligne {
+  display: grid; grid-template-columns: minmax(130px, 1.2fr) minmax(120px, 1fr) 2fr 60px auto;
+  align-items: center; gap: 12px; padding: 10px 14px; background: var(--papier); border: 1px solid var(--trait); border-radius: 8px; font-size: 0.8125rem;
+}
+.ch-corps-titre { font-weight: 700; }
+.ch-corps-montants { font-size: 0.75rem; color: var(--gris); }
+.ch-corps-jauge { height: 10px; background: var(--creux); border-radius: 99px; overflow: hidden; }
+.ch-corps-jauge span { display: block; height: 100%; border-radius: 99px; background: var(--accent); transition: width .3s ease; }
+.ch-corps-pct { font-weight: 800; text-align: right; }
+
+@media (max-width: 767px) {
+  .ch-corps-ligne { grid-template-columns: 1fr auto; gap: 6px; }
+  .ch-corps-montants { grid-column: 1 / -1; font-size: 0.6875rem; }
+  .ch-corps-jauge { grid-column: 1 / 2; }
+  .ch-corps-pct { grid-column: 2 / 3; }
+  .ch-corps-actions { grid-column: 1 / -1; }
+}
+
+/* Rapports Journaliers */
+.ch-rapports { display: grid; gap: 16px; }
+.ch-rapports-grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+.ch-rapport-carte {
+  background: var(--papier); border: 1px solid var(--trait); border-radius: var(--rayon); padding: 14px 16px;
+  box-shadow: var(--ombre); cursor: pointer; display: grid; gap: 8px; transition: border-color .15s;
+}
+.ch-rapport-carte:hover { border-color: var(--accent); }
+.ch-rapport-carte.actif { border-color: var(--accent); outline: 2px solid var(--accent); }
+.ch-rapport-detail { background: var(--papier); border: 1px solid var(--trait); border-radius: var(--rayon); padding: 18px; box-shadow: var(--ombre); display: grid; gap: 16px; }
+.ch-table-effectifs { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
+.ch-table-effectifs th, .ch-table-effectifs td { padding: 6px 10px; border-bottom: 1px solid var(--trait); text-align: left; }
+.ch-table-effectifs th { background: var(--creux); font-weight: 700; }
+.ch-table-effectifs td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.ch-constat-bloc { background: color-mix(in srgb, var(--alerte) 8%, var(--papier)); border-left: 4px solid var(--alerte); border-radius: 8px; padding: 12px 14px; }
+.ch-recom-bloc { background: color-mix(in srgb, var(--ph3) 8%, var(--papier)); border-left: 4px solid var(--ph3); border-radius: 8px; padding: 12px 14px; }
+
+/* Import Excel KFE */
+.ch-import-zone {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+  min-height: 200px; padding: 32px; border: 2px dashed var(--trait-fort); border-radius: var(--rayon);
+  background: var(--papier); text-align: center; cursor: pointer; transition: all .15s;
+}
+.ch-import-zone.survol { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 5%, var(--papier)); }
+/* L'input fichier est visuellement masqué mais focusable (classe .visuellement-cache de style.css) :
+   la zone marque son focus comme le survol, le champ s'active nativement par Tab + Entrée/Espace. */
+.ch-import-zone:focus-within { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 5%, var(--papier)); }
+
+/* ==========================================================================
+   MODE TERRAIN (SMARTPHONE FIRST / VISITES CHANTIER)
+   ========================================================================== */
+.ch-sousonglet-terrain {
+  background: color-mix(in srgb, var(--accent) 12%, var(--creux)) !important;
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  font-weight: 800 !important;
+}
+.ch-sousonglet-terrain.actif {
+  background: var(--accent) !important;
+  color: #fff !important;
+}
+
+.ch-terrain {
+  display: grid;
+  gap: 14px;
+  max-width: 680px;
+  margin: 0 auto;
+  padding-bottom: 90px;
+}
+
+/* Barre de navigation séquentielle des lots */
+.ch-terrain-nav {
+  background: var(--papier);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  padding: 10px 12px;
+  box-shadow: var(--ombre);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.ch-terrain-nav input[type="search"] {
+  flex: 1;
+  min-height: 44px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-align: center;
+}
+.ch-terrain-nav .bouton {
+  min-height: 44px;
+  padding: 8px 14px;
+  white-space: nowrap;
+}
+
+/* Fiche récapitulative de la villa sélectionnée */
+.ch-terrain-villa-carte {
+  background: var(--papier);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  padding: 14px 16px;
+  box-shadow: var(--ombre);
+  display: grid;
+  gap: 10px;
+}
+.ch-terrain-villa-tete {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+.ch-terrain-villa-tete h3 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin: 0;
+  color: var(--encre);
+}
+.ch-terrain-badgerow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+/* 7 Corps d'état Finitions KFE */
+.ch-terrain-corps-grille {
+  display: grid;
+  gap: 10px;
+}
+.ch-terrain-corps-carte {
+  background: var(--papier);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  padding: 12px 14px;
+  box-shadow: var(--ombre);
+  display: grid;
+  gap: 8px;
+  transition: border-color .15s;
+}
+.ch-terrain-corps-carte.modifie {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 4%, var(--papier));
+}
+.ch-terrain-corps-entete {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.ch-terrain-corps-titre {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--encre);
+}
+.ch-terrain-corps-pct {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+.ch-terrain-boutons-rang {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.ch-btn-palier, .ch-btn-inc {
+  flex: 1;
+  min-width: 44px;
+  min-height: 40px;
+  font: 700 0.7812rem var(--corps);
+  border: 1px solid var(--trait-fort);
+  border-radius: 8px;
+  background: var(--creux);
+  color: var(--encre);
+  cursor: pointer;
+  padding: 4px 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.ch-btn-palier:hover, .ch-btn-inc:hover {
+  background: color-mix(in srgb, var(--accent) 15%, var(--creux));
+}
+.ch-btn-palier.actif {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.ch-btn-100 {
+  background: color-mix(in srgb, var(--succes) 15%, var(--papier));
+  color: var(--succes);
+  border-color: var(--succes);
+  font-weight: 800;
+}
+.ch-btn-100.actif {
+  background: var(--succes);
+  color: #fff;
+}
+
+/* Photos terrain */
+.ch-terrain-photos-bloc {
+  background: var(--papier);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  padding: 14px 16px;
+  box-shadow: var(--ombre);
+  display: grid;
+  gap: 12px;
+}
+.ch-terrain-photo-declencheur {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 56px;
+  border: 2px dashed var(--trait-fort);
+  border-radius: 10px;
+  background: var(--creux);
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--accent);
+  padding: 10px;
+}
+.ch-terrain-photo-declencheur:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--creux));
+}
+.ch-terrain-photo-declencheur input {
+  display: none;
+}
+.ch-photo-tag-selecteur {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.ch-photo-tag {
+  font: 600 0.7188rem var(--corps);
+  padding: 4px 10px;
+  border-radius: 99px;
+  border: 1px solid var(--trait-fort);
+  background: var(--papier);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ch-photo-tag.actif {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.ch-terrain-galerie {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 8px;
+}
+.ch-terrain-photo-vignette {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--trait);
+}
+.ch-terrain-photo-vignette img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ch-terrain-photo-vignette .ch-photo-tag-badge {
+  position: absolute;
+  bottom: 3px;
+  left: 3px;
+  right: 3px;
+  background: rgba(0, 0, 0, .75);
+  color: #fff;
+  font-size: 0.5938rem;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 4px;
+  padding: 1px 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ch-terrain-photo-del {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--papier);
+  border: 1px solid var(--trait);
+  color: var(--alerte);
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+/* Réserves terrain */
+.ch-terrain-reserves-bloc {
+  background: var(--papier);
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  padding: 14px 16px;
+  box-shadow: var(--ombre);
+  display: grid;
+  gap: 10px;
+}
+.ch-res-terrain-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border-left: 4px solid var(--trait-fort);
+  background: var(--creux);
+}
+.ch-res-terrain-item.bloquante { border-left-color: var(--alerte); background: color-mix(in srgb, var(--alerte) 8%, var(--creux)); }
+.ch-res-terrain-item.majeure { border-left-color: var(--ph4); background: color-mix(in srgb, var(--ph4) 8%, var(--creux)); }
+.ch-res-terrain-item.mineure { border-left-color: var(--gris); }
+.ch-res-terrain-item.levee { opacity: .5; text-decoration: line-through; }
+.ch-btn-lever-res {
+  background: var(--succes) !important;
+  color: #fff !important;
+  border-color: var(--succes) !important;
+  font-weight: 700 !important;
+  min-height: 36px !important;
+  padding: 4px 12px !important;
+  font-size: 0.75rem !important;
+  white-space: nowrap;
+}
+
+/* Dictée Vocale */
+.ch-btn-vocal {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 6px 14px;
+  border-radius: 99px;
+  border: 1px solid var(--trait-fort);
+  background: var(--papier);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.ch-btn-vocal:hover {
+  background: var(--creux);
+}
+.ch-btn-vocal.ecoute {
+  background: var(--alerte);
+  color: #fff;
+  border-color: var(--alerte);
+  animation: pulseAudio 1.2s infinite ease-in-out;
+}
+@keyframes pulseAudio {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(179, 50, 42, .4); }
+  50% { transform: scale(1.03); box-shadow: 0 0 0 8px rgba(179, 50, 42, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(179, 50, 42, 0); }
+}
+
+/* Barre flottante d'action terrain (en bas de l'écran sur mobile) */
+.ch-terrain-barre-action {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+  background: var(--papier);
+  border-top: 1px solid var(--trait);
+  padding: 10px 16px;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, .12);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.ch-terrain-barre-action .bouton {
+  min-height: 50px;
+  font-size: 1rem;
+  font-weight: 800;
+  width: 100%;
+}
+.ch-terrain-options-bas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--gris);
+}
+
+/* Compteurs Tactiles Effectifs & Matériels pour Rapports Journaliers */
+.ch-compteur-ligne {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--papier);
+  border: 1px solid var(--trait);
+  border-radius: 8px;
+}
+.ch-compteur-libelle {
+  font-weight: 600;
+  font-size: 0.8438rem;
+  flex: 1;
+}
+.ch-compteur-controles {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ch-btn-cpt {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid var(--trait-fort);
+  background: var(--creux);
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--encre);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ch-btn-cpt:hover {
+  background: color-mix(in srgb, var(--accent) 15%, var(--creux));
+}
+.ch-cpt-valeur {
+  min-width: 32px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Actions rapides et alternatives Rapports Journaliers */
+.ch-rapport-alternatives-barre {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.ch-btn-alt {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 42px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--trait-fort);
+  background: var(--papier);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--ombre);
+}
+.ch-btn-alt:hover {
+  background: var(--creux);
+  border-color: var(--accent);
+}
+.ch-btn-alt.magique {
+  background: color-mix(in srgb, var(--accent) 10%, var(--papier));
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Fiche imprimable Rapport Journalier */
+@media print {
+  body * { visibility: hidden; }
+  .ch-rapport-imprimable, .ch-rapport-imprimable * { visibility: visible; }
+  .ch-rapport-imprimable {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 20px;
+    background: #fff !important;
+    color: #000 !important;
+  }
+}
+
+
+
+/* ---- Tableau de bord KFE : cartes encadrées + mini-carte d'avancement ---- */
+.ch-dash { display: grid; gap: 16px; }
+.ch-dash-grille { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.ch-dash-bloc { display: grid; gap: 12px; margin: 0; }
+.ch-dash-entete { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.ch-dash-entete .qc-h { margin: 2px 0 0; }
+.ch-minicarte { height: 340px; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--vide-carte, var(--sable, #f1ece3)); overflow: hidden; }
+.ch-minicarte .leaflet-container { background: transparent; font: inherit; }
+.ch-dash .aide { margin: 0; }
+.ch-tranches { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px; }
+.ch-tranche { display: flex; align-items: center; gap: 8px; width: 100%; padding: 6px 10px; font: inherit; font-size: 0.8125rem; text-align: left; color: var(--encre); background: var(--papier); border: 1px solid var(--trait); border-radius: var(--rayon); cursor: pointer; }
+.ch-tranche .compte { margin-left: auto; font-weight: 700; }
+.ch-tranche:hover { border-color: var(--accent); }
+.ch-tranche[aria-pressed="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); font-weight: 700; }
+.ch-dash-lignes { list-style: none; margin: 0; padding: 0; display: grid; }
+.ch-dash-ligne { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; padding: 12px 0; border-top: 1px solid var(--trait); }
+.ch-dash-ligne:first-child { border-top: 0; padding-top: 0; }
+.ch-dash-ligne strong { display: block; }
+.ch-dash-ligne .aide { display: block; font-size: 0.7812rem; }
+.ch-dash-compte { font: 800 1.5rem/1 var(--titre); color: var(--encre); }
+.ch-dash-liens { grid-column: 1 / -1; display: flex; gap: 8px; flex-wrap: wrap; }
+.ch-dash .bouton.petit { padding: 5px 10px; font-size: 0.7812rem; }
+@media (max-width: 900px) {
+  .ch-dash-grille { grid-template-columns: minmax(0, 1fr); }
+  .ch-minicarte { height: 260px; }
+}
