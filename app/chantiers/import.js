@@ -1,4 +1,4 @@
-// Chantiers — Mise à jour par import Excel KFE (Piste C).
+// Chantiers — Mise à jour par import Excel (Piste C).
 import { afficheurs, changerSousVue, charger, etat, fcfa } from './commun.js';
 const { $, esc, num } = APP;
 

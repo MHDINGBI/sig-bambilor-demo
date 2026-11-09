@@ -37,7 +37,7 @@ function descriptionFiltresActifs() {
 }
 
 function construireRapportEtatHTML(clients, descFiltres, avecBoutonsActions = true) {
-  const cfgProjet = (APP.cfg && APP.cfg.projet) || { nom: 'Cité CDC Bambilor', maitre_ouvrage: 'SRT' };
+  const cfgProjet = (APP.cfg && APP.cfg.projet) || { nom: 'Cité résidentielle', maitre_ouvrage: 'Anonymisé' };
   const dateGen = new Date();
   const dateFrStr = dateGen.toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
   const heureFrStr = dateGen.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
@@ -398,7 +398,7 @@ function construireRapportEtatHTML(clients, descFiltres, avecBoutonsActions = tr
     </div>
     <div class="rap-meta-droite">
       <p style="margin:0 0 2px;">Édité le <strong>${esc(dateFrStr)} à ${esc(heureFrStr)}</strong></p>
-      <p style="margin:0;">Système d'Information Géographique (SIG Bambilor)</p>
+      <p style="margin:0;">Système d'Information Géographique (SIG)</p>
     </div>
   </header>
 
@@ -512,7 +512,7 @@ function construireRapportEtatHTML(clients, descFiltres, avecBoutonsActions = tr
   </table>
 
   <footer class="rap-footer">
-    <div>Programme Cité CDC Bambilor — Direction Commerciale & Recouvrement</div>
+    <div>Programme Cité résidentielle — Direction Commerciale & Recouvrement</div>
     <div>Document officiel généré par le SIG Lotissement · ${esc(dateFrStr)}</div>
   </footer>
 </div>
@@ -570,7 +570,7 @@ export async function telechargerRapportPDF() {
 
     const source = conteneur.querySelector('.rapport-contenu') || conteneur;
     const jour = new Date().toISOString().slice(0, 10);
-    const nomFichier = `Rapport-Clients-Bambilor-${jour}.pdf`;
+    const nomFichier = `Rapport-Clients-${jour}.pdf`;
 
     await html2pdf().set({
       margin: [6, 8, 6, 8],
@@ -602,7 +602,7 @@ export function telechargerRapportHTML() {
   const jour = new Date().toISOString().slice(0, 10);
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `Rapport-Clients-Bambilor-${jour}.html`;
+  a.download = `Rapport-Clients-${jour}.html`;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
@@ -639,7 +639,7 @@ export function exporterCSV() {
   const jour = new Date().toISOString().slice(0, 10);
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `Selection-Clients-Bambilor-${jour}.csv`;
+  a.download = `Selection-Clients-${jour}.csv`;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }

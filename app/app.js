@@ -84,7 +84,7 @@
   const SEPARATEURS = /(\s*\/\s*|\s*&\s*|\s+et\s+|\s+sc\s+)/i;   // sc : « sous couvert »
   // Nom de famille saisi à part : ignoré quand la fiche y a recopié tous les titulaires.
   const nomValide = (nom) => { const n = String(nom || '').trim(); return n && !SEPARATEURS.test(n) ? n : ''; };
-  // Raison sociale (« CDC », « CHSBALS 160 TERRAINS ») : un seul mot ou des chiffres. Laissée telle que
+  // Raison sociale (« SOCIÉTÉ X ») : un seul mot ou des chiffres. Laissée telle que
   // saisie, entièrement dans la colonne Prénoms, sans nom de famille.
   const estEntite = (t) => { const x = String(t || '').trim(); return !!x && (!/\s/.test(x) || /\d/.test(x)); };
   // Titulaires mis en forme, un par entrée : [{prenom, nom, nomDabord}] ; nomConnu : nom de famille du

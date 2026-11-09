@@ -206,7 +206,7 @@ export const trancheKfe = (v) => {
   const T = APP.tranchesKfe;
   return T.find((t) => Number(v) <= t.max) || T[T.length - 1];
 };
-// Lien vers la grande carte, sur la thématique KFE ; `codes` : lots à surligner ensemble (facultatif)
+// Lien vers la grande carte, sur la thématique finitions ; `codes` : lots à surligner ensemble (facultatif)
 export const lienCarteKfe = (codes) => '#carte' + (codes && codes.length ? '/lots=' + encodeURIComponent(codes.join(',')) : '') + '?theme=kfe_160';
 
 // ---------- photos : redimensionnement partagé ----------

@@ -22,7 +22,7 @@ export async function afficherRapports() {
         <div class="ch-cockpit-tete">
           <div>
             <span class="c-etiquette">Supervision de chantier</span>
-            <h3 class="qc-h">Rapports Journaliers Technosol / SRT</h3>
+            <h3 class="qc-h">Rapports journaliers Contrôleur / Maîtrise d'ouvrage</h3>
           </div>
           <button type="button" class="bouton" id="ch-nouveau-rapport">Créer un rapport journalier</button>
         </div>
@@ -142,7 +142,7 @@ export function dessinerVueRapports() {
         <div>
           <span class="c-etiquette">Digitalisation Rapport Journalier (Piste D)</span>
           <h3 class="qc-h">Supervision et Contrôle Quotidien des Travaux</h3>
-          <p class="aide">Rapports officiels émis par TECHNOSOL INGENIERIE / Maîtrise d'ouvrage SRT.</p>
+          <p class="aide">Rapports officiels émis par le bureau de contrôle / la Maîtrise d'ouvrage.</p>
         </div>
         <div class="ch-rapport-alternatives-barre">
           <button type="button" class="ch-btn-alt magique" id="ch-nouveau-consolide" title="Générer automatiquement à partir des pointages smartphone du jour">✨ Rapport consolidé (visites du jour)</button>
@@ -170,7 +170,7 @@ export function dessinerVueRapports() {
             </div>
             <div style="text-align:right">
               <span class="badge-kfe" style="background:var(--accent);color:#fff">Finitions</span>
-              <p class="aide" style="margin:4px 0 6px">Émetteur : ${esc(r.emetteur || 'TECHNOSOL')}</p>
+              <p class="aide" style="margin:4px 0 6px">Émetteur : ${esc(r.emetteur || 'Bureau de contrôle')}</p>
               <div style="display:flex;gap:6px;justify-content:flex-end">
                 <button type="button" class="bouton secondaire petit" id="ch-imprimer-rap">📄 Imprimer / PDF</button>
                 <button type="button" class="bouton petit" id="ch-whatsapp-rap" style="background:#25D366;border-color:#25D366;color:#fff">📲 WhatsApp</button>
@@ -209,9 +209,9 @@ export function dessinerVueRapports() {
             ${approsHtml}
           </div>
 
-          <!-- Recommandations formelles SRT -->
+          <!-- Recommandations formelles MOA -->
           <div class="ch-recom-bloc">
-            <strong style="color:var(--ph3);display:block;margin-bottom:4px">Prescriptions & Demandes Formelles de la SRT à l'Entreprise :</strong>
+            <strong style="color:var(--ph3);display:block;margin-bottom:4px">Prescriptions & Demandes Formelles de la Maîtrise d'ouvrage à l'Entreprise :</strong>
             <div style="white-space:pre-line;margin:0;line-height:1.5;font-size:0.8125rem">${esc(r.recommandations || 'Aucune prescription spécifique.')}</div>
           </div>
         </div>
@@ -251,14 +251,14 @@ export function partagerRapportWhatsApp(rapport) {
   const matTotal = (rapport.materiels || []).filter((m) => m.etat === 'Actif').reduce((acc, m) => acc + (m.lot_57 || 0) + (m.lot_103 || 0), 0);
 
   const texte = [
-    `🏗️ *RAPPORT JOURNALIER CHANTIER BAMBILOR N° ${rapport.numero_chrono || '—'}*`,
+    `🏗️ *RAPPORT JOURNALIER CHANTIER N° ${rapport.numero_chrono || '—'}*`,
     `📅 *Date :* ${dateFr(rapport.date_rapport)} | *Météo :* ${rapport.meteo || 'Ensoleillé'}`,
     `👷 *Effectifs :* ${persTotal} ouvriers mobilisés`,
     `🚜 *Matériels :* ${matTotal} engins actifs`,
     rapport.constat_global ? `\n📌 *Constat général :*\n${rapport.constat_global}` : '',
     rapport.observations ? `\n🔍 *Observations terrain :*\n${rapport.observations}` : '',
-    rapport.recommandations ? `\n⚠️ *Prescriptions SRT :*\n${rapport.recommandations}` : '',
-    `\n_Émetteur : ${rapport.emetteur || 'TECHNOSOL INGENIERIE / SRT'}_`
+    rapport.recommandations ? `\n⚠️ *Prescriptions MOA :*\n${rapport.recommandations}` : '',
+    `\n_Émetteur : ${rapport.emetteur || 'Bureau de contrôle / MOA'}_`
   ].filter(Boolean).join('\n');
 
   if (navigator.clipboard) {
@@ -300,12 +300,12 @@ export function imprimerRapportFiche(rapport) {
       <div class="entete">
         <div>
           <h1>RAPPORT JOURNALIER DE CHANTIER N° ${esc(rapport.numero_chrono)}</h1>
-          <p style="margin:4px 0 0;font-size:0.75rem;color:#6B625D">Marché N° 001_SRT2026 · Finitions 160 villas Cité CDC Bambilor</p>
+          <p style="margin:4px 0 0;font-size:0.75rem;color:#6B625D">Marché N° 001 · Finitions 160 villas</p>
         </div>
         <div style="text-align:right">
           <strong>Date : ${dateFr(rapport.date_rapport)}</strong><br>
           <span>Météo : ${esc(rapport.meteo || 'Ensoleillé')}</span><br>
-          <span style="font-size:0.6875rem;color:#6B625D">Émetteur : ${esc(rapport.emetteur || 'TECHNOSOL')}</span>
+          <span style="font-size:0.6875rem;color:#6B625D">Émetteur : ${esc(rapport.emetteur || 'Bureau de contrôle')}</span>
         </div>
       </div>
 
@@ -328,10 +328,10 @@ export function imprimerRapportFiche(rapport) {
         <tbody>${matRows || '<tr><td colspan="3">Aucun matériel</td></tr>'}</tbody>
       </table>
 
-      ${rapport.recommandations ? `<div class="bloc" style="border-left-color:#2D3B55"><strong>Prescriptions & Demandes SRT à l'entreprise :</strong><p style="margin:4px 0 0;white-space:pre-line">${esc(rapport.recommandations)}</p></div>` : ''}
+      ${rapport.recommandations ? `<div class="bloc" style="border-left-color:#2D3B55"><strong>Prescriptions & Demandes MOA à l'entreprise :</strong><p style="margin:4px 0 0;white-space:pre-line">${esc(rapport.recommandations)}</p></div>` : ''}
 
       <div style="margin-top:40px;display:flex;justify-content:space-between;padding-top:12px;border-top:1px solid #E0D6C8;font-size:0.75rem">
-        <div><strong>Visa Contrôleur (Technosol / SRT)</strong></div>
+        <div><strong>Visa Contrôleur</strong></div>
         <div><strong>Visa Entreprise</strong></div>
       </div>
       <script>window.print();</script>
@@ -436,7 +436,7 @@ export async function ouvrirModalNouveauRapport(mode = 'vierge') {
           <label>N° Chrono<input type="text" id="rap-chrono" value="${chronoDefaut}" placeholder="Ex. 053"></label>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <label>Émetteur<input type="text" id="rap-emetteur" value="${esc(dernierData?.emetteur || 'TECHNOSOL INGENIERIE / SRT')}"></label>
+          <label>Émetteur<input type="text" id="rap-emetteur" value="${esc(dernierData?.emetteur || 'Bureau de contrôle / MOA')}"></label>
           <label>Météo<select id="rap-meteo">
             <option value="Ensoleillé">Ensoleillé</option>
             <option value="Nuageux">Nuageux</option>
@@ -477,7 +477,7 @@ export async function ouvrirModalNouveauRapport(mode = 'vierge') {
         <!-- Recommandations -->
         <div style="display:grid;gap:4px">
           <div style="display:flex;justify-content:space-between;align-items:center">
-            <label for="rap-recommandations" style="font-weight:700">Recommandations & Prescriptions SRT adressées à l'entreprise</label>
+            <label for="rap-recommandations" style="font-weight:700">Recommandations & Prescriptions MOA adressées à l'entreprise</label>
             <button type="button" class="ch-btn-vocal" id="rap-btn-vocal-recom">🎙️ Dicter</button>
           </div>
           <textarea id="rap-recommandations" rows="3" placeholder="Mise en demeure, approvisionnements urgents...">${esc(recommandationsInitial)}</textarea>

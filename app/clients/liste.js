@@ -392,7 +392,7 @@ function colonnes() {
   defs.push(
     {
       // Prénoms et nom en deux colonnes, comme le tableau des remboursements (APP.noms : prénoms avec
-      // majuscule initiale, nom en capitales). Une raison sociale (« CDC ») est entière dans Prénoms.
+      // majuscule initiale, nom en capitales). Une raison sociale (« raison sociale ») est entière dans Prénoms.
       // Plusieurs titulaires : le premier est affiché, les autres dans le badge « +N ».
       field: 'nom', headerName: 'Prénoms', width: 230, minWidth: 180, comparator: comparerTexte,
       valueGetter: (p) => APP.noms.identite(p.data.nom, null, null, p.data.nom_famille).prenom,
@@ -445,7 +445,7 @@ function colonnes() {
           wrap.appendChild(b);
           return wrap;
         }
-        // Un acquéreur peut détenir des dizaines de lots (CDC : 43, CEFOREP : 18) : un badge par lot
+        // Un acquéreur peut détenir des dizaines de lots (43, 18) : un badge par lot
         // faisait une ligne de 1 700 px de haut. On en montre trois, le reste tient dans l'infobulle.
         // Pas de préfixe « Lot » : l'en-tête de la colonne le dit déjà, et le badge deux fois plus
         // court divise par deux le nombre de lignes occupées.

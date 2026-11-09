@@ -1,4 +1,4 @@
-// Chantiers — Détail d'un lot : fiche, frise, KFE, visites, réserves, photos + création chantier.
+// Chantiers — Détail d'un lot : fiche, frise, finitions, visites, réserves, photos + création chantier.
 import { aRole, cfg, dateFr, ETAPE_QUICK, etat, fcfa, GRV, nav, redimensionner } from './commun.js';
 const { $, esc, num, pct } = APP;
 
