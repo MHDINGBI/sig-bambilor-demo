@@ -16,7 +16,7 @@
     '/api/dossiers/': '/dev-data/dossiers.json',
     '/api/pilotage/': '/dev-data/pilotage.json',
     '/api/decisions/': '/dev-data/decisions.json',
-    // Cockpit KFE : instantané anonymisé de la base locale (noms remplacés, R17 de l'audit du 23/09)
+    // instantané anonymisé de la base locale (noms remplacés, R17 de l'audit du 23/09)
     '/api/chantiers/kfe/': '/dev-data/kfe.json',
     '/api/chantiers/kfe/stats/': '/dev-data/kfe-stats.json',
   };

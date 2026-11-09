@@ -1,4 +1,4 @@
-// Chantiers — Mode Terrain (Smartphone First / visites KFE).
+// Chantiers — Mode Terrain (Smartphone First / visites).
 import { afficheurs, arreterDictation, charger, CORPS_ETAT_KFE, demarrerDictation, etat, fcfa, norm, redimensionner } from './commun.js';
 const { $, esc, num } = APP;
 

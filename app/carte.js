@@ -672,6 +672,6 @@
     Object.entries(extras).forEach(([nom, couche]) => couche.setStyle(styles[nom]));
   });
 
-  APP.tranchesKfe = TRANCHES_KFE; // palette d'avancement KFE, partagée avec le tableau de bord des chantiers
+  APP.tranchesKfe = TRANCHES_KFE; // palette d'avancement des finitions, partagée avec le tableau de bord des chantiers
 APP.vues.carte = { afficher, EXCLUS };
 })();

@@ -205,7 +205,7 @@
 #vue-chantiers .ch-sousonglet:hover { background: color-mix(in srgb, var(--accent) 15%, var(--creux)); color: var(--encre); }
 #vue-chantiers .ch-sousonglet.actif { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-/* ---------- Cockpit KFE ---------- */
+/* ---------- Cockpit Finitions ---------- */
 .ch-cockpit { display: grid; gap: 16px; }
 .ch-cockpit-tete { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
 .ch-cockpit-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
@@ -267,7 +267,7 @@
 .ch-constat-bloc { background: color-mix(in srgb, var(--alerte) 8%, var(--papier)); border-left: 4px solid var(--alerte); border-radius: 8px; padding: 12px 14px; }
 .ch-recom-bloc { background: color-mix(in srgb, var(--ph3) 8%, var(--papier)); border-left: 4px solid var(--ph3); border-radius: 8px; padding: 12px 14px; }
 
-/* Import Excel KFE */
+/* Import Excel */
 .ch-import-zone {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
   min-height: 200px; padding: 32px; border: 2px dashed var(--trait-fort); border-radius: var(--rayon);
@@ -354,7 +354,7 @@
   margin-top: 4px;
 }
 
-/* 7 Corps d'état Finitions KFE */
+/* 7 Corps d'état finitions */
 .ch-terrain-corps-grille {
   display: grid;
   gap: 10px;
@@ -722,7 +722,7 @@
 
 
 
-/* ---- Tableau de bord KFE : cartes encadrées + mini-carte d'avancement ---- */
+/* ---- Tableau de bord : cartes encadrées + mini-carte d'avancement ---- */
 .ch-dash { display: grid; gap: 16px; }
 .ch-dash-grille { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 16px; align-items: start; }
 .ch-dash-bloc { display: grid; gap: 12px; margin: 0; }

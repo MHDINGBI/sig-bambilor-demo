@@ -1,6 +1,6 @@
-// Onglet Chantiers (V1-D / KFE 160) — contrat : docs/PLAN-V2-PLATEFORME.md & Marché N° 001_SRT2026.
-// Inclut Cockpit Synthétique KFE 160 (Piste B), Matrice Commerciale (Piste E),
-// Suivi des Lots, Rapports Journaliers Technosol/SRT (Piste D) et Import Excel (Piste C).
+// Onglet Chantiers (V1-D)
+// Inclut Cockpit Synthétique (Piste B), Matrice Commerciale (Piste E),
+// Suivi des Lots, Rapports Journaliers (Piste D) et Import Excel (Piste C).
 // Point d'entrée (module ES) : construire la vue, router les sous-vues et enregistrer APP.vues.
 // Le code est réparti dans chantiers/ : commun, cockpit, dashboard, terrain, liste, rapports, import, detail (audit 23/09, R09).
 import { appliquerQs, changerSousVue, charger, etat } from './chantiers/commun.js';

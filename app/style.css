@@ -1,5 +1,5 @@
 @charset "utf-8";
-/* Interface unique — direction « E » : charte graphique SRT (Montserrat, bordeaux #86282B, noir),
+/* Interface unique — direction « E » : charte graphique (Montserrat, bordeaux #86282B, noir),
    fond sable et cartes arrondies, bandeaux de phase. Thèmes clair / sombre / auto (système).
    Les couleurs d'état restent celles de config.yml (éclaircies en sombre par app.js). */
 :root {
@@ -10,7 +10,7 @@
   --gris: #6B625D;
   --trait: #E0D6C8;
   --trait-fort: #CDBFAE;
-  --accent: #86282B;         /* bordeaux SRT, valeur officielle */
+  --accent: #86282B;         /* bordeaux, valeur officielle */
   --accent-fonce: #6B1F22;
   --accent-texte: #FFFFFF;
   --alerte: #B3322A;
@@ -328,11 +328,11 @@ textarea { resize: vertical; }
 .bascule label:has(input:checked) { background: var(--accent); color: var(--accent-texte); }
 .bascule label:has(input:focus-visible) { outline: 3px solid var(--accent); outline-offset: -3px; }
 
-/* Sélecteur Corps d'état KFE (panneau outils carte) */
+/* Sélecteur Corps d'état finitions (panneau outils carte) */
 .kfe-corps-panneau { margin-top: 10px; display: grid; gap: 4px; }
 .kfe-corps-panneau select { font-size: 0.8125rem; padding: 6px 8px; font-weight: 600; border-radius: 8px; }
 
-/* Bloc Fiche Lot KFE */
+/* Bloc Fiche Lot finitions */
 .kfe-fiche-bloc { background: color-mix(in srgb, var(--ph3) 7%, var(--papier)); border: 1px solid color-mix(in srgb, var(--ph3) 25%, var(--trait)); border-radius: 10px; margin: 10px 14px; padding: 12px 14px !important; }
 .kfe-fiche-entete { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
 .badge-kfe { font: 700 0.6875rem/1 var(--corps); text-transform: uppercase; letter-spacing: .08em; padding: 4px 8px; border-radius: 99px; background: var(--accent); color: #fff; }
