@@ -54,8 +54,6 @@ function construireRapportEtatHTML(clients, descFiltres, avecBoutonsActions = tr
   const nbContentieux = clients.filter((c) => c.contentieux).length;
   const nbRemb = clients.filter((c) => c.a_remboursement).length;
 
-  const logoSvg = document.getElementById('logo-srt') ? document.getElementById('logo-srt').outerHTML : '';
-
   return `<!doctype html>
 <html lang="fr">
 <head>
@@ -385,7 +383,6 @@ function construireRapportEtatHTML(clients, descFiltres, avecBoutonsActions = tr
 </head>
 <body>
 <div class="rapport-contenu">
-  <svg width="0" height="0" style="position:absolute">${logoSvg}</svg>
 
   ${avecBoutonsActions ? `
   <div class="actions-bar">
@@ -394,7 +391,6 @@ function construireRapportEtatHTML(clients, descFiltres, avecBoutonsActions = tr
 
   <header class="rap-header">
     <div class="rap-logo-wrap">
-      <svg class="rap-logo" viewBox="2 2 243 103" role="img" aria-label="SRT"><use href="#logo-srt"/></svg>
       <div>
         <p class="rap-projet-nom">${esc(cfgProjet.nom)} · ${esc(cfgProjet.maitre_ouvrage)}</p>
         <h1 class="rap-titre">Rapport d'état du portefeuille clients</h1>
