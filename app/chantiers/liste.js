@@ -120,7 +120,7 @@ export function dessinerCartes(liste) {
       <div class="ch-carte-corps">
         <span>${esc(c.type_villa)} · ${esc(c.entreprise || '—')}</span>
         ${kfe?.acquereur_nom ? `<span class="aide">Acquéreur : <strong>${esc(kfe.acquereur_nom)}</strong></span>` : ''}
-        <span class="ch-avancement">${pct(av / 100)} ${kfe ? '<small style="font-size:0.75rem;color:var(--gris)">(KFE)</small>' : ''}</span>
+        <span class="ch-avancement">${pct(av / 100)} ${kfe ? '<small style="font-size:0.75rem;color:var(--gris)">(finitions)</small>' : ''}</span>
         <div class="jauge"><span style="width:${Math.min(100, av)}%;background:${esc(etatL.couleur || APP.jeton('--accent'))}"></span></div>
         <div class="ch-cartes-pastilles">${pastille}${retard}${reserve}${commSolde}</div>
       </div>
