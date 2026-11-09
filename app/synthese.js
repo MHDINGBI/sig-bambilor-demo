@@ -446,7 +446,7 @@
         : `<p class="vide">${esc($('v-recouvrement').textContent)}</p>`;
       return `<figure class="bloc"><h2>${esc(titre)}</h2>${corps}</figure>`;
     };
-    const entete = (suite) => `<header class="r-tete"><svg class="logo" viewBox="2 2 243 103" aria-hidden="true"><use href="#logo-srt"/></svg><div>
+    const entete = (suite) => `<header class="r-tete"><div>
         <h1>${esc(cfg().projet.nom)} <span>Comité de pilotage${suite ? ' — suite' : ''}</span></h1>
         <p>Chiffres calculés le ${esc($('date-calcul').textContent)} · Travaux au ${esc($('date-travaux').textContent)} · Filtres : ${esc(APP.libelleFiltres())}${SIG.DEV ? ' · Données de démonstration' : ''}</p>
       </div></header>`;

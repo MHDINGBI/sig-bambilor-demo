@@ -90,7 +90,7 @@ body.occupe { cursor: progress; }
 .cartouche > div:first-child { border-left: 0; padding-left: 0; flex-direction: row; align-items: center; gap: 16px; }
 .cartouche .c-etiquette { color: var(--tete-doux); }
 .logo { display: block; width: 112px; height: auto; color: var(--logo); fill: currentColor; flex: none; }
-.c-nom { display: grid; gap: 1px; padding-left: 16px; border-left: 1px solid var(--tete-trait); }
+.c-nom { display: grid; gap: 1px; }
 .c-projet h1 { font-size: clamp(1.15rem, 1.6vw, 1.45rem); font-weight: 800; line-height: 1.15; }
 #mo { color: var(--tete-texte); }
 .c-dates { font-size: 0.7812rem; color: var(--tete-doux); }
