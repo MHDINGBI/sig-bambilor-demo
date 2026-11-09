@@ -123,7 +123,7 @@ export function dessinerVueTerrain(indexLot, lotPrecedent, lotSuivant) {
             <span class="c-etiquette">${esc(lot.lot_contrat || 'Marché Finition 160')} · ${esc(lot.phase || 'Phase III')}</span>
             <h3>Villa ${esc(code)} · ${esc(lot.type_villa || '—')}</h3>
           </div>
-          <span class="badge-kfe" style="background:var(--accent);color:#fff">${esc(lot.lot_contrat || 'KFE')}</span>
+          <span class="badge-kfe" style="background:var(--accent);color:#fff">${esc(lot.lot_contrat || 'Finitions')}</span>
         </div>
 
         <div class="ch-terrain-badgerow">
@@ -145,9 +145,9 @@ export function dessinerVueTerrain(indexLot, lotPrecedent, lotSuivant) {
         </div>
       </div>
 
-      <!-- 7 Corps d'état Finitions KFE -->
+      <!-- 7 Corps d'état Finitions -->
       <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
-        <h4 style="margin:0;font-size:0.875rem;text-transform:uppercase;letter-spacing:.06em">7 Corps d'État (Finitions KFE)</h4>
+        <h4 style="margin:0;font-size:0.875rem;text-transform:uppercase;letter-spacing:.06em">7 Corps d'État (Finitions)</h4>
         <span class="aide" style="margin:0">Pointage tactile instantané</span>
       </div>
       <div class="ch-terrain-corps-grille">

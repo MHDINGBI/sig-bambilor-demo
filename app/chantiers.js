@@ -41,12 +41,12 @@ function construire() {
 
     <!-- Sous-onglets de navigation Chantiers -->
     <div class="ch-onglets-sousvue" id="ch-onglets-sousvue">
-      <button type="button" class="ch-sousonglet" data-sousvue="cockpit">Cockpit KFE (160)</button>
-      <button type="button" class="ch-sousonglet" data-sousvue="dashboard">Tableau de bord KFE</button>
+      <button type="button" class="ch-sousonglet" data-sousvue="cockpit">Cockpit (160)</button>
+      <button type="button" class="ch-sousonglet" data-sousvue="dashboard">Tableau de bord</button>
       <button type="button" class="ch-sousonglet ch-sousonglet-terrain" data-sousvue="terrain">📱 Mode Terrain (Smartphone)</button>
       <button type="button" class="ch-sousonglet" data-sousvue="lots">Suivi des Lots</button>
       <button type="button" class="ch-sousonglet" data-sousvue="rapports">Rapports Journaliers</button>
-      <button type="button" class="ch-sousonglet" data-sousvue="import">Mise à jour Excel KFE</button>
+      <button type="button" class="ch-sousonglet" data-sousvue="import">Mise à jour Excel</button>
     </div>
 
     <div class="ch-compteurs" id="ch-compteurs" hidden>
@@ -59,7 +59,7 @@ function construire() {
     <div class="ch-barre-filtres" id="ch-barre-filtres" hidden>
       <label class="visuellement-cache" for="ch-q">Rechercher un n° de lot ou acquéreur</label>
       <input type="search" id="ch-q" placeholder="N° de lot ou acquéreur…" autocomplete="off">
-      <label class="visuellement-cache" for="ch-filtre-contrat">Contrat KFE</label>
+      <label class="visuellement-cache" for="ch-filtre-contrat">Contrat</label>
       <select id="ch-filtre-contrat">
         <option value="">Tous les chantiers</option>
         <option value="LOT 103">Lot 103 (Phase III)</option>

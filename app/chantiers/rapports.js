@@ -22,7 +22,7 @@ export async function afficherRapports() {
         <div class="ch-cockpit-tete">
           <div>
             <span class="c-etiquette">Supervision de chantier</span>
-            <h3 class="qc-h">Rapports Journaliers Technosol / SRT / KFE</h3>
+            <h3 class="qc-h">Rapports Journaliers Technosol / SRT</h3>
           </div>
           <button type="button" class="bouton" id="ch-nouveau-rapport">Créer un rapport journalier</button>
         </div>
@@ -169,7 +169,7 @@ export function dessinerVueRapports() {
               <p class="aide" style="margin:0">Date : <strong>${dateFr(r.date_rapport)}</strong> · Météo : <strong>${esc(r.meteo || '—')}</strong></p>
             </div>
             <div style="text-align:right">
-              <span class="badge-kfe" style="background:var(--accent);color:#fff">KFE 160</span>
+              <span class="badge-kfe" style="background:var(--accent);color:#fff">Finitions</span>
               <p class="aide" style="margin:4px 0 6px">Émetteur : ${esc(r.emetteur || 'TECHNOSOL')}</p>
               <div style="display:flex;gap:6px;justify-content:flex-end">
                 <button type="button" class="bouton secondaire petit" id="ch-imprimer-rap">📄 Imprimer / PDF</button>
@@ -211,7 +211,7 @@ export function dessinerVueRapports() {
 
           <!-- Recommandations formelles SRT -->
           <div class="ch-recom-bloc">
-            <strong style="color:var(--ph3);display:block;margin-bottom:4px">Prescriptions & Demandes Formelles de la SRT à l'Entreprise KFE :</strong>
+            <strong style="color:var(--ph3);display:block;margin-bottom:4px">Prescriptions & Demandes Formelles de la SRT à l'Entreprise :</strong>
             <div style="white-space:pre-line;margin:0;line-height:1.5;font-size:0.8125rem">${esc(r.recommandations || 'Aucune prescription spécifique.')}</div>
           </div>
         </div>
@@ -328,11 +328,11 @@ export function imprimerRapportFiche(rapport) {
         <tbody>${matRows || '<tr><td colspan="3">Aucun matériel</td></tr>'}</tbody>
       </table>
 
-      ${rapport.recommandations ? `<div class="bloc" style="border-left-color:#2D3B55"><strong>Prescriptions & Demandes SRT à l'entreprise KFE :</strong><p style="margin:4px 0 0;white-space:pre-line">${esc(rapport.recommandations)}</p></div>` : ''}
+      ${rapport.recommandations ? `<div class="bloc" style="border-left-color:#2D3B55"><strong>Prescriptions & Demandes SRT à l'entreprise :</strong><p style="margin:4px 0 0;white-space:pre-line">${esc(rapport.recommandations)}</p></div>` : ''}
 
       <div style="margin-top:40px;display:flex;justify-content:space-between;padding-top:12px;border-top:1px solid #E0D6C8;font-size:0.75rem">
         <div><strong>Visa Contrôleur (Technosol / SRT)</strong></div>
-        <div><strong>Visa Entreprise (KFE)</strong></div>
+        <div><strong>Visa Entreprise</strong></div>
       </div>
       <script>window.print();</script>
     </body>
@@ -385,7 +385,7 @@ export async function ouvrirModalNouveauRapport(mode = 'vierge') {
   formulaireMateriels = [
     { designation: 'Bétonnière', lot_57: 0, lot_103: 1, etat: 'Actif' },
     { designation: 'Aiguille vibrante', lot_57: 0, lot_103: 1, etat: 'Actif' },
-    { designation: 'Pick-up KFE', lot_57: 0, lot_103: 1, etat: 'Actif' },
+    { designation: 'Pick-up', lot_57: 0, lot_103: 1, etat: 'Actif' },
   ];
   if (dernierData && dernierData.materiels && dernierData.materiels.length) {
     formulaireMateriels = JSON.parse(JSON.stringify(dernierData.materiels));
@@ -477,7 +477,7 @@ export async function ouvrirModalNouveauRapport(mode = 'vierge') {
         <!-- Recommandations -->
         <div style="display:grid;gap:4px">
           <div style="display:flex;justify-content:space-between;align-items:center">
-            <label for="rap-recommandations" style="font-weight:700">Recommandations & Prescriptions SRT adressées à KFE</label>
+            <label for="rap-recommandations" style="font-weight:700">Recommandations & Prescriptions SRT adressées à l'entreprise</label>
             <button type="button" class="ch-btn-vocal" id="rap-btn-vocal-recom">🎙️ Dicter</button>
           </div>
           <textarea id="rap-recommandations" rows="3" placeholder="Mise en demeure, approvisionnements urgents...">${esc(recommandationsInitial)}</textarea>

@@ -12,9 +12,9 @@ export function afficherImport() {
   $('ch-contenu').innerHTML = `
     <div class="bloc" style="max-width:760px;margin:0 auto;display:grid;gap:16px">
       <div class="bloc-titre">
-        <span class="c-etiquette">Import Automatique KFE (Piste C)</span>
-        <h3 class="qc-h">Synchronisation du Classeur Excel KFE</h3>
-        <p class="aide">Glissez-déposez le fichier de situation hebdomadaire ou mensuelle fourni par l'entreprise KFE (ex. <code>AVANCEMENT 103 VILLAS PHASE III - KFE.xlsx</code>).</p>
+        <span class="c-etiquette">Import automatique (Piste C)</span>
+        <h3 class="qc-h">Synchronisation du Classeur Excel</h3>
+        <p class="aide">Glissez-déposez le fichier de situation hebdomadaire ou mensuelle fourni par l'entreprise (ex. <code>AVANCEMENT 103 VILLAS PHASE III.xlsx</code>).</p>
       </div>
 
       <div class="ch-import-zone" id="ch-zone-depot">
@@ -23,9 +23,9 @@ export function afficherImport() {
           <polyline points="17 8 12 3 7 8"></polyline>
           <line x1="12" y1="3" x2="12" y2="15"></line>
         </svg>
-        <strong style="font-size:1.1rem">Glissez le classeur Excel KFE ici</strong>
+        <strong style="font-size:1.1rem">Glissez le classeur Excel ici</strong>
         <span class="aide">ou cliquez pour sélectionner le fichier sur votre ordinateur</span>
-        <input type="file" id="ch-fichier-excel" accept=".xlsx,.xls" class="visuellement-cache" aria-label="Choisir le classeur Excel KFE à importer">
+        <input type="file" id="ch-fichier-excel" accept=".xlsx,.xls" class="visuellement-cache" aria-label="Choisir le classeur Excel à importer">
       </div>
 
       <div id="ch-import-resultat"></div>
@@ -72,7 +72,7 @@ export async function traiterFichierExcel(fichier) {
         <span>${num(res.mis_a_jour || 103)} villas Phase III synchronisées avec succès en base de données.</span>
         <span class="aide">Budget analysé : ${esc(fcfa(res.budget_total))} · Montant exécuté consolidé : ${esc(fcfa(res.montant_execute))}</span>
         <div style="margin-top:6px">
-          <button type="button" class="bouton" id="ch-retour-cockpit">Voir le Cockpit KFE actualisé →</button>
+          <button type="button" class="bouton" id="ch-retour-cockpit">Voir le Cockpit actualisé →</button>
         </div>
       </div>`;
     etat.statsKfe = null;

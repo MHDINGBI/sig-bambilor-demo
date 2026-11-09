@@ -1,4 +1,4 @@
-// Chantiers — Tableau de bord KFE 160 : synthèse + mini-carte d'avancement.
+// Chantiers — Tableau de bord 160 : synthèse + mini-carte d'avancement.
 import { changerSousVue, dansMatrice, etat, fcfa, lienCarteKfe, MATRICE, trancheKfe, afficheurs } from './commun.js';
 const { $, esc, num, pct, pl } = APP;
 
@@ -13,7 +13,7 @@ export async function afficherDashboard() {
     try {
       etat.statsKfe = await SIG.api('/api/chantiers/kfe/stats/');
     } catch (e) {
-      $('ch-contenu').innerHTML = `<p class="note erreur">Tableau de bord KFE indisponible : ${esc(e.message)}</p>`;
+      $('ch-contenu').innerHTML = `<p class="note erreur">Tableau de bord indisponible : ${esc(e.message)}</p>`;
       return;
     }
   }
@@ -61,10 +61,10 @@ export async function afficherDashboard() {
       <div class="ch-dash-grille">
         <section class="bloc ch-dash-bloc" aria-labelledby="ch-dash-t-carte">
           <div class="ch-dash-entete">
-            <div><span class="c-etiquette">Plan des villas KFE</span><h3 class="qc-h" id="ch-dash-t-carte">Avancement des finitions</h3></div>
+            <div><span class="c-etiquette">Plan des villas</span><h3 class="qc-h" id="ch-dash-t-carte">Avancement des finitions</h3></div>
             <a class="bouton" id="ch-dash-lien-carte" href="${esc(lienCarteKfe())}">Voir sur la carte&nbsp;→</a>
           </div>
-          <div id="ch-minicarte" class="ch-minicarte" role="img" aria-label="Plan des villas KFE colorées selon leur avancement"></div>
+          <div id="ch-minicarte" class="ch-minicarte" role="img" aria-label="Plan des villas colorées selon leur avancement"></div>
           <p class="aide" id="ch-dash-portee" aria-live="polite"></p>
           <ul class="ch-tranches" id="ch-tranches">${tranchesHtml}</ul>
         </section>

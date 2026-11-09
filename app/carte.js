@@ -37,7 +37,7 @@
     const c = cfg();
     const depuis = (src, vide) => [...Object.entries(src).map(([k, v]) => ({ k, l: v.libelle, c: APP.couleur(v.couleur) })), { k: null, l: vide, c: VIDE() }];
     if (theme === 'etat_travaux') return depuis(c.etats_travaux, 'Sans suivi de travaux');
-    if (theme === 'kfe_160') return [...TRANCHES_KFE, { k: null, l: 'Hors périmètre KFE 160', c: 'rgba(180, 180, 180, 0.22)' }];
+    if (theme === 'kfe_160') return [...TRANCHES_KFE, { k: null, l: 'Hors périmètre finitions', c: 'rgba(180, 180, 180, 0.22)' }];
     if (theme === 'statut_commercial') return depuis(c.statuts_commerciaux, 'Statut non renseigné');
     if (theme === 'phase') return [...c.phases.map((p, i) => ({ k: p.code, l: p.nom, c: PHASE(i) })), { k: null, l: 'Hors phase', c: VIDE() }];
     // types de villa : même palette que les phases (config.yml ne porte pas de couleur par type)
@@ -338,7 +338,7 @@
       } else if (av >= 75 && p.reliquat && Number(p.reliquat) > 0) {
         alerteKfe = `<div class="kfe-alerte-fiche danger"><strong>Alerte recouvrement :</strong> Villa avancée (${pct(av / 100)}) mais reliquat impayé de ${fcfa(p.reliquat)}. Relance commerciale urgente avant livraison.</div>`;
       } else if (solde && av < 70) {
-        alerteKfe = `<div class="kfe-alerte-fiche alerte"><strong>Priorité travaux :</strong> Acquéreur soldé à 100% mais chantier à ${pct(av / 100)}. Priorité d'intervention KFE.</div>`;
+        alerteKfe = `<div class="kfe-alerte-fiche alerte"><strong>Priorité travaux :</strong> Acquéreur soldé à 100% mais chantier à ${pct(av / 100)}. Priorité d'intervention.</div>`;
       }
 
       const barCorps = (nom, val) => `
@@ -348,10 +348,10 @@
           <span class="kfe-mini-val">${num(val || 0)} %</span>
         </div>`;
 
-      h += `<section class="kfe-fiche-bloc"${APP.ancre('champ', 'kfe', `Lot ${lotNom} — Finitions KFE`)}>
+      h += `<section class="kfe-fiche-bloc"${APP.ancre('champ', 'kfe', `Lot ${lotNom} — Finitions`)}>
         <div class="kfe-fiche-entete">
-          <h3>Finitions KFE 160</h3>
-          <span class="badge-kfe">${esc(p.kfe_lot_contrat || 'KFE 160')}</span>
+          <h3>Finitions</h3>
+          <span class="badge-kfe">${esc(p.kfe_lot_contrat || 'Finitions')}</span>
         </div>
         ${alerteKfe}
         <div class="kfe-global-jauge">

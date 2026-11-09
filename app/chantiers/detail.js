@@ -56,7 +56,7 @@ export function afficherDetail() {
     kfeBlocHtml = `
       <div class="bloc kfe-fiche-bloc" style="margin-top:12px">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-          <h3 class="titre-section" style="margin:0"><span>Finitions KFE 160 · ${esc(kfe.lot_contrat)}</span></h3>
+          <h3 class="titre-section" style="margin:0"><span>Finitions · ${esc(kfe.lot_contrat)}</span></h3>
           <span class="badge-kfe" style="background:var(--accent);color:#fff">${esc(kfe.lot_contrat)}</span>
         </div>
 
@@ -73,7 +73,7 @@ export function afficherDetail() {
           <dt>Statut Compte</dt><dd>${kfe.compte_solde ? '<span style="color:var(--succes);font-weight:700">Soldé (100%)</span>' : (reliquatNum > 0 ? `<span style="color:var(--alerte);font-weight:700">Reliquat : ${esc(fcfa(reliquatNum))}</span>` : '—')}</dd>
         </dl>
 
-        <h4 style="font-size:0.8125rem;text-transform:uppercase;letter-spacing:.08em;color:var(--gris);margin:14px 0 8px">Avancement des 7 Corps d'État KFE</h4>
+        <h4 style="font-size:0.8125rem;text-transform:uppercase;letter-spacing:.08em;color:var(--gris);margin:14px 0 8px">Avancement des 7 Corps d'État</h4>
         <div class="kfe-corps-jauges">
           ${barCorps('1. Gros œuvre', kfe.gros_oeuvre_pct, kfe.gros_oeuvre_budget, kfe.gros_oeuvre_montant)}
           ${barCorps('2. Étanchéité', kfe.etancheite_pct, kfe.etancheite_budget, kfe.etancheite_montant)}
@@ -135,7 +135,7 @@ export function afficherDetail() {
       <div class="ch-rangee">
         <div class="bloc">
           <div class="ch-jauge-bloc"${APP.ancre('champ', 'avancement', `Lot ${detail.code_lot} — Avancement global`)}>
-            <span class="c-etiquette">Avancement global ${kfe ? '(KFE)' : ''}</span>
+            <span class="c-etiquette">Avancement global ${kfe ? '(finitions)' : ''}</span>
             <strong>${pct(av / 100)}</strong>
             <div class="jauge"><span style="width:${Math.min(100, av)}%;background:${esc(etatL.couleur || APP.jeton('--accent'))}"></span></div>
             ${detail.retard_jours ? `<span class="ch-retard-grand">${num(detail.retard_jours)} jours de retard</span>` : ''}
